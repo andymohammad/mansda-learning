@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis: Merumuskan Masalah & Tujuan Penelitian</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- 
+    PLAN & JUSTIFICATION
+    Narrative & Structure:
+    1.  Introduction: Hook with staggering statistics on youth mental health in Indonesia.
+    2.  Step 1: Start Broad - Identify a general area of interest from the provided text.
+    3.  Step 2: Narrow Down - Break down the broad topic into specific, researchable problems.
+    4.  Step 3: Formulate a Research Question - Teach the "how" and "what" of a good question.
+    5.  Step 4: Set Objectives - Connect the question to actionable research goals.
+    6.  Conclusion: Encourage students to start their research journey.
+
+    Visualization Choices (NO SVG, NO MERMAID JS):
+    1.  Statistic "1 in 3": Donut Chart (Chart.js) - Goal: Inform. Justification: Excellent for showing a part-to-whole relationship in a visually engaging way.
+    2.  Statistic "1 in 20": Donut Chart (Chart.js) - Goal: Inform. Justification: Reinforces the severity of the issue with a clear percentage visualization.
+    3.  The Research Funnel: Flow Diagram (HTML/Tailwind) - Goal: Organize. Justification: A flowchart-like structure built with divs and borders is the best non-SVG way to illustrate a process of narrowing down a topic.
+    4.  Factors of Stress: Bar Chart (Chart.js) - Goal: Compare. Justification: A vertical bar chart is ideal for comparing the perceived importance or frequency of different categories (academic, social, etc.).
+    5.  Question to Objectives: List (HTML/Tailwind) - Goal: Organize. Justification: A clear, structured list effectively shows the transformation from a question to actionable objectives.
+
+    Color Palette:
+    "Brilliant Blues" from the provided image: #00A5E3 (Primary Blue), #8DD7BF (Teal), #FF96C5 (Pink), #FF5768 (Red), #FFBF65 (Orange).
+    -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 300px;
+            max-width: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#00A5E3] mb-2">Dari "Kenapa Ya?" Menjadi Pertanyaan Riset</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Sebuah panduan untuk mengubah rasa penasaranmu tentang isu kesehatan mental remaja menjadi sebuah penelitian yang bermakna.</p>
+        </header>
+
+        <!-- Section 1: The Big Picture -->
+        <section id="big-picture" class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-[#00A5E3]">Mengapa Ini Penting? Kondisi di Indonesia</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">1 dari 3 Remaja</h3>
+                    <p class="text-gray-600 mb-4">Setara dengan 15,5 juta remaja di Indonesia memiliki setidaknya satu masalah kesehatan mental.</p>
+                    <div class="chart-container">
+                        <canvas id="oneInThreeChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">1 dari 20 Remaja</h3>
+                    <p class="text-gray-600 mb-4">Setara dengan 2,45 juta remaja terdiagnosis mengalami gangguan mental dalam 12 bulan terakhir.</p>
+                    <div class="chart-container">
+                        <canvas id="oneInTwentyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center mt-4 text-gray-500 text-sm">Sumber: Indonesia National Adolescent Mental Health Survey (I-NAMHS)</p>
+        </section>
+
+        <!-- Section 2: The Research Funnel -->
+        <section id="process" class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-[#00A5E3]">4 Langkah Merumuskan Masalah Penelitian</h2>
+            <div class="relative max-w-2xl mx-auto p-4">
+                <!-- Funnel Visual -->
+                <div class="absolute top-0 left-1/2 w-full h-full -translate-x-1/2" style="clip-path: polygon(0 0, 100% 0, 85% 100%, 15% 100%); background-color: rgba(0, 165, 227, 0.05); z-index: -1;"></div>
+
+                <!-- Step 1 -->
+                <div class="mb-8 text-center">
+                    <div class="inline-block bg-[#00A5E3] text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-2">1</div>
+                    <h3 class="text-xl font-bold text-gray-800">Amati & Temukan Topik Umum</h3>
+                    <p class="text-gray-600">Lihat sekitarmu. Apa yang menarik perhatianmu? Apa masalah yang sering kamu dengar?</p>
+                    <p class="bg-yellow-100 border-l-4 border-yellow-400 text-yellow-700 p-3 rounded-md mt-2">Contoh Topik: "Stres yang dialami siswa SMA."</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="mb-8 text-center">
+                    <div class="inline-block bg-[#8DD7BF] text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-2">2</div>
+                    <h3 class="text-xl font-bold text-gray-800">Fokus pada Satu Area Spesifik</h3>
+                    <p class="text-gray-600">Topik umum terlalu luas. Pilih satu penyebab atau aspek yang paling menarik bagimu.</p>
+                    <div class="chart-container max-w-md mx-auto h-64 md:h-72 mt-4">
+                        <canvas id="stressFactorsChart"></canvas>
+                    </div>
+                    <p class="bg-green-100 border-l-4 border-green-400 text-green-700 p-3 rounded-md mt-4">Contoh Fokus: "Stres karena tekanan akademik."</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="mb-8 text-center">
+                    <div class="inline-block bg-[#FF96C5] text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-2">3</div>
+                    <h3 class="text-xl font-bold text-gray-800">Rumuskan Masalah Penelitian</h3>
+                    <p class="text-gray-600">Ubah fokusmu menjadi sebuah pertanyaan yang jelas dan bisa diukur. Gunakan kata tanya seperti 'Bagaimana', 'Apa', atau 'Seberapa besar'.</p>
+                    <p class="bg-pink-100 border-l-4 border-pink-400 text-pink-700 p-3 rounded-md mt-2">Contoh Rumusan Masalah: "Apa saja faktor-faktor pemicu stres akademik utama pada siswa kelas XII di SMA Harapan Bangsa?"</p>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="text-center">
+                    <div class="inline-block bg-[#FF5768] text-white rounded-full w-12 h-12 flex items-center justify-center text-2xl font-bold mb-2">4</div>
+                    <h3 class="text-xl font-bold text-gray-800">Tentukan Tujuan Penelitian</h3>
+                    <p class="text-gray-600">Tujuan adalah jawaban dari rumusan masalahmu. Ini adalah apa yang ingin kamu capai dengan riset ini.</p>
+                    <p class="bg-red-100 border-l-4 border-red-400 text-red-700 p-3 rounded-md mt-2">Contoh Tujuan Penelitian: "Untuk mengidentifikasi dan mendeskripsikan faktor-faktor pemicu stres akademik utama pada siswa kelas XII di SMA Harapan Bangsa."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: From Question to Objective -->
+        <section id="examples" class="mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8 text-[#00A5E3]">Mengubah Pertanyaan Menjadi Tujuan</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-lg mb-2 text-[#FF5768]">Rumusan Masalah (Pertanyaan)</h4>
+                        <p class="text-gray-700 leading-relaxed">
+                            Bagaimana strategi *coping* (penanganan stres) yang paling efektif digunakan oleh remaja untuk menghadapi tekanan sosial dari media sosial?
+                        </p>
+                    </div>
+                    <div class="border-t-2 md:border-t-0 md:border-l-2 border-gray-200 pl-0 pt-4 md:pl-6 md:pt-0">
+                        <h4 class="font-bold text-lg mb-2 text-[#8DD7BF]">Tujuan Penelitian (Jawaban)</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li>Mengidentifikasi berbagai strategi *coping* yang digunakan remaja.</li>
+                            <li>Menganalisis strategi *coping* mana yang paling sering digunakan.</li>
+                            <li>Mengevaluasi efektivitas dari setiap strategi dalam mengurangi stres yang dirasakan.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Call to Action -->
+        <section class="text-center bg-gray-100 p-8 rounded-lg">
+            <h2 class="text-2xl font-bold text-[#00A5E3]">Sekarang Giliranmu!</h2>
+            <p class="mt-4 mb-6 max-w-2xl mx-auto text-gray-600">Lihat sekelilingmu. Masalah apa yang membuatmu penasaran? Mulailah dengan pertanyaan sederhana. Riset terbaik berawal dari rasa ingin tahu yang besar.</p>
+            <a href="#process" class="bg-[#FF5768] text-white font-bold py-3 px-8 rounded-full hover:bg-red-600 transition duration-300">
+                Lihat Lagi Langkah-langkahnya
+            </a>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Helper function to wrap long labels
+            function formatLabel(str, maxwidth) {
+                const sections = [];
+                const words = str.split(" ");
+                let temp = "";
+
+                words.forEach((item, index) => {
+                    if (temp.length > 0) {
+                        constconcat = temp + ' ' + item;
+                    } else {
+                        constconcat = item;
+                    }
+
+                    if (constconcat.length > maxwidth) {
+                        sections.push(temp);
+                        temp = "";
+                    }
+
+                    if (temp.length > 0) {
+                        temp += ' ' + item;
+                    } else {
+                        temp = item;
+                    }
+                });
+
+                if (temp.length > 0) {
+                    sections.push(temp);
+                }
+
+                return sections;
+            }
+
+            // Default Chart.js tooltip configuration
+            const tooltipConfig = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                    return label.join(' ');
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Chart 1: Masalah Kesehatan Mental
+            const ctx1 = document.getElementById('oneInThreeChart').getContext('2d');
+            new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Memiliki Masalah Kesehatan Mental', 'Tidak Memiliki Masalah Kesehatan Mental'],
+                    datasets: [{
+                        label: 'Persentase Remaja',
+                        data: [34.9, 65.1],
+                        backgroundColor: ['#FF5768', '#E9ECEF'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...tooltipConfig.plugins,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 15,
+                                padding: 20
+                            }
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            // Chart 2: Gangguan Mental
+            const ctx2 = document.getElementById('oneInTwentyChart').getContext('2d');
+            new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Terdiagnosis Gangguan Mental', 'Tidak Terdiagnosis'],
+                    datasets: [{
+                        label: 'Persentase Remaja',
+                        data: [5.5, 94.5],
+                        backgroundColor: ['#FF96C5', '#E9ECEF'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...tooltipConfig.plugins,
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                boxWidth: 15,
+                                padding: 20
+                            }
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            // Chart 3: Faktor Pemicu Stres
+            const ctx3 = document.getElementById('stressFactorsChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Tuntutan Akademik', 'Tekanan Sosial', 'Ekspektasi Keluarga', 'Masalah Pribadi', 'Masa Depan'],
+                    datasets: [{
+                        label: 'Tingkat Pengaruh (Survei Hipotetis)',
+                        data: [85, 70, 65, 55, 75],
+                        backgroundColor: [
+                            'rgba(255, 87, 104, 0.7)',
+                            'rgba(0, 165, 227, 0.7)',
+                            'rgba(255, 150, 197, 0.7)',
+                            'rgba(141, 215, 191, 0.7)',
+                            'rgba(255, 191, 101, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 87, 104, 1)',
+                            'rgba(0, 165, 227, 1)',
+                            'rgba(255, 150, 197, 1)',
+                            'rgba(141, 215, 191, 1)',
+                            'rgba(255, 191, 101, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    plugins: {
+                        ...tooltipConfig.plugins,
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Contoh Faktor Pemicu Stres Remaja'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
