@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrasi Mengajar - [Nama Guru Anda]</title>
+    <!-- Memuat Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Memuat Font Awesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Variabel CSS untuk kustomisasi tema */
+        :root {
+            --primary-color: #4CAF50; /* Hijau */
+            --secondary-color: #2196F3; /* Biru */
+            --accent-color: #FFC107; /* Kuning Amber */
+            --text-color: #333;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+        }
+
+        /* Reset CSS dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Gaya dasar body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+            scroll-behavior: smooth; /* Efek scroll halus untuk navigasi */
+        }
+
+        /* Kontainer utama untuk konten */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex-grow: 1; /* Memastikan kontainer mengisi ruang yang tersedia */
+        }
+
+        /* Gaya header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden; /* Untuk efek pseudo-element */
+        }
+
+        /* Efek latar belakang miring di header */
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: skewY(-3deg);
+            transform-origin: top left;
+            z-index: 0;
+        }
+
+        /* Gaya judul header */
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gaya paragraf header */
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Gaya navigasi tombol */
+        .navigation {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Memungkinkan tombol untuk wrap ke baris baru */
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        /* Gaya tombol navigasi */
+        .nav-button {
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            padding: 12px 25px;
+            border-radius: 50px; /* Bentuk pil */
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease; /* Transisi halus untuk semua properti */
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 2px solid transparent; /* Border awal transparan */
+        }
+
+        /* Efek hover tombol navigasi */
+        .nav-button:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: translateY(-5px) scale(1.02); /* Sedikit naik dan membesar */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-color); /* Perubahan warna border */
+        }
+
+        /* Gaya ikon di tombol navigasi */
+        .nav-button i {
+            font-size: 1.2em;
+        }
+
+        /* Gaya bagian grid (untuk kartu) */
+        .grid-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Kolom responsif */
+            gap: 25px;
+        }
+
+        /* Gaya kartu */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk hover */
+            border-bottom: 4px solid var(--primary-color); /* Border bawah awal */
+        }
+
+        /* Efek hover kartu */
+        .card:hover {
+            transform: translateY(-8px); /* Sedikit naik */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar */
+            border-color: var(--secondary-color); /* Perubahan warna border */
+        }
+
+        /* Gaya ikon di kartu */
+        .card i {
+            font-size: 3.5em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        /* Efek hover ikon di kartu */
+        .card:hover i {
+            color: var(--secondary-color);
+        }
+
+        /* Gaya judul kartu */
+        .card h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        /* Gaya paragraf kartu */
+        .card p {
+            font-size: 0.95em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        /* Gaya link di kartu */
+        .card a {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        /* Efek hover link di kartu */
+        .card a:hover {
+            background-color: var(--secondary-color);
+            transform: scale(1.05); /* Membesar sedikit */
+        }
+
+        /* Gaya footer */
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 20px;
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        /* Penyesuaian responsif untuk layar kecil */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .navigation {
+                flex-direction: column; /* Tombol navigasi menjadi tumpukan vertikal */
+                align-items: center;
+            }
+            .nav-button {
+                width: 90%; /* Tombol navigasi mengisi lebar */
+            }
+            .grid-section {
+                grid-template-columns: 1fr; /* Hanya satu kolom untuk kartu */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Administrasi Mengajar</h1>
+            <p>Selamat datang di pusat administrasi mengajar saya, tempat semua yang Anda butuhkan ada di satu tempat!</p>
+        </header>
+
+        <!-- Navigasi utama dengan tombol-tombol -->
+        <nav class="navigation">
+            <a href="#materi" class="nav-button"><i class="fas fa-book-open"></i> Materi</a>
+            <a href="#asesmen" class="nav-button"><i class="fas fa-edit"></i> Asesmen</a>
+            <a href="#absensi" class="nav-button"><i class="fas fa-user-check"></i> Absensi</a>
+            <a href="#tugas" class="nav-button"><i class="fas fa-tasks"></i> Tugas</a>
+            <a href="#refleksi" class="nav-button"><i class="fas fa-lightbulb"></i> Refleksi</a>
+            <a href="#rpp" class="nav-button"><i class="fas fa-file-alt"></i> RPP/Modul</a>
+            <a href="#jadwal" class="nav-button"><i class="fas fa-calendar-alt"></i> Jadwal</a>
+        </nav>
+
+        <!-- Bagian Materi -->
+        <section id="materi" class="grid-section">
+            <div class="card">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Booking Lab Komputer</h3>
+                <p>Gunakan laboratorium komputer melalui situs ini.</p>
+                <a href="materi/kelas-xi.html">Book Now!</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Materi Kelas X</h3>
+                <p>Temukan materi lengkap dan bahan ajar untuk siswa kelas X.</p>
+                <a href="materi/kelas-xii.html">Lihat Materi</a>
+            </div>
+        </section>
+        <section id="materi" class="grid-section">
+            <div class="card">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Materi Kelas XI</h3>
+                <p>Akses semua materi pembelajaran untuk siswa kelas XI.</p>
+                <a href="materi/kelas-xi.html">Lihat Materi</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Materi Kelas XII</h3>
+                <p>Temukan materi lengkap dan bahan ajar untuk siswa kelas XII.</p>
+                <a href="materi/kelas-xii.html">Lihat Materi</a>
+            </div>
+        </section>
+
+        <!-- Bagian Absensi dan Pengumpulan Tugas -->
+        <section id="absensi" class="grid-section" style="margin-top: 30px;">
+            <div class="card">
+                <i class="fas fa-clipboard-list"></i>
+                <h3>Absensi Siswa</h3>
+                <p>Cek daftar kehadiran siswa dan riwayat absensi.</p>
+                <a href="absensi/index.html">Lihat Absensi</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-paper-plane"></i>
+                <h3>Pengumpulan Tugas</h3>
+                <p>Unggah atau lihat status pengumpulan tugas siswa.</p>
+                <a href="tugas/index.html">Kunjungi Halaman</a>
+            </div>
+        </section>
+
+        <!-- Bagian Asesmen dan Daftar Nilai (Rekomendasi Tambahan) -->
+        <section id="asesmen" class="grid-section" style="margin-top: 30px;">
+            <div class="card">
+                <i class="fas fa-award"></i>
+                <h3>Asesmen Siswa</h3>
+                <p>Informasi hasil asesmen, ulangan, dan ujian siswa.</p>
+                <a href="asesmen/index.html">Lihat Asesmen</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Daftar Nilai</h3>
+                <p>Pantau perkembangan nilai harian, UTS, dan UAS siswa.</p>
+                <a href="nilai/index.html">Lihat Daftar Nilai</a>
+            </div>
+        </section>
+
+        <!-- Bagian Refleksi dan FAQ (Rekomendasi Tambahan) -->
+        <section id="refleksi" class="grid-section" style="margin-top: 30px;">
+            <div class="card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Refleksi Pembelajaran</h3>
+                <p>Catatan dan hasil refleksi mengenai proses pembelajaran.</p>
+                <a href="refleksi/index.html">Lihat Refleksi</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-question-circle"></i>
+                <h3>FAQ (Tanya Jawab)</h3>
+                <p>Temukan jawaban untuk pertanyaan-pertanyaan umum.</p>
+                <a href="faq/index.html">Lihat FAQ</a>
+            </div>
+        </section>
+
+        <!-- Bagian RPP/Modul Ajar dan Sumber Daya Eksternal (Rekomendasi Tambahan) -->
+        <section id="rpp" class="grid-section" style="margin-top: 30px;">
+            <div class="card">
+                <i class="fas fa-clipboard"></i>
+                <h3>RPP / Modul Ajar</h3>
+                <p>Dokumen rencana pelaksanaan pembelajaran dan modul ajar.</p>
+                <a href="rpp/index.html">Lihat Dokumen</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-link"></i>
+                <h3>Sumber Daya Eksternal</h3>
+                <p>Link penting ke situs atau aplikasi pendukung pembelajaran.</p>
+                <a href="sumberdaya/index.html">Kunjungi</a>
+            </div>
+        </section>
+
+        <!-- Bagian Jadwal Pelajaran dan Kontak Penting (Rekomendasi Tambahan) -->
+        <section id="jadwal" class="grid-section" style="margin-top: 30px;">
+            <div class="card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Jadwal Pelajaran</h3>
+                <p>Lihat jadwal mengajar mingguan Anda.</p>
+                <a href="jadwal/index.html">Lihat Jadwal</a>
+            </div>
+            <div class="card">
+                <i class="fas fa-phone-alt"></i>
+                <h3>Kontak Penting</h3>
+                <p>Informasi kontak dan grup komunikasi kelas.</p>
+                <a href="kontak/index.html">Lihat Kontak</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Administrasi Mengajar [Nama Guru Anda]. Dibuat dengan &hearts; untuk pendidikan.</p>
+    </footer>
+</body>
+</html>
