@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Ajar Informatika: Arsitektur Jaringan Komputasional</title>
+    <!-- Tailwind CSS CDN untuk styling yang responsif dan modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Warna latar belakang abu-abu muda */
+            color: #374151; /* Warna teks gelap */
+        }
+        .container {
+            max-width: 1000px;
+        }
+        /* Styling untuk tombol */
+        .btn-primary {
+            @apply bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out;
+        }
+        /* Styling untuk kartu/bagian */
+        .card {
+            @apply bg-white p-6 rounded-xl shadow-lg mb-8;
+        }
+        /* Styling untuk judul bagian */
+        .section-title {
+            @apply text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2;
+        }
+        /* Styling untuk sub-judul */
+        .subsection-title {
+            @apply text-2xl font-semibold text-gray-700 mb-4;
+        }
+        /* Styling untuk daftar */
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        /* Styling untuk tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; /* Warna border abu-abu */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #e0f2fe; /* Warna latar belakang header tabel */
+            font-weight: 600;
+            color: #1f2937;
+        }
+        /* Styling untuk feedback studi kasus */
+        .feedback-box {
+            @apply mt-4 p-4 rounded-lg;
+        }
+        .feedback-correct {
+            @apply bg-green-100 text-green-800 border border-green-300;
+        }
+        .feedback-incorrect {
+            @apply bg-red-100 text-red-800 border border-red-300;
+        }
+        .feedback-warning {
+            @apply bg-yellow-100 text-yellow-800 border border-yellow-300;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <!-- Variabel global yang diperlukan untuk Firebase, meskipun tidak digunakan dalam contoh ini -->
+    <script>
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Log untuk debugging (opsional)
+        console.log("App ID:", appId);
+        console.log("Firebase Config:", firebaseConfig);
+        console.log("Initial Auth Token:", initialAuthToken);
+    </script>
+
+    <div class="container mx-auto bg-white rounded-xl shadow-xl p-6 sm:p-10">
+        <!-- Header Modul -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-700 mb-4">Modul Ajar Informatika</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-2">Arsitektur Jaringan Komputasional dan Perannya dalam Sistem Modern</h2>
+            <p class="text-lg text-gray-600">Disusun oleh: Andy Mohammad Teguh, M.Kom. | MAN Sidoarjo | Tahun Ajaran: 2025/2026</p>
+            <p class="text-md text-gray-500">Jenjang/Kelas: SMA/MA Fase F / XII | Alokasi Waktu: 4 JP (2 Pertemuan @ 2 JP)</p>
+        </header>
+
+        <!-- Bagian Tujuan Pembelajaran -->
+        <section class="card">
+            <h3 class="section-title">1. Tujuan Pembelajaran</h3>
+            <p class="mb-4">Setelah mengikuti pembelajaran ini, peserta didik diharapkan mampu:</p>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li>Menjelaskan konsep dasar arsitektur jaringan komputasional (cloud computing dan edge computing).</li>
+                <li>Mengidentifikasi perbedaan mendasar antara cloud computing dan edge computing.</li>
+                <li>Menganalisis peran cloud computing dan edge computing dalam mendukung sistem modern (misalnya, IoT, AI, big data, aplikasi real-time).</li>
+                <li>Memberikan contoh aplikasi nyata yang memanfaatkan arsitektur cloud atau edge computing.</li>
+                <li>Merefleksikan implikasi (kelebihan dan kekurangan) dari penerapan arsitektur jaringan komputasional dalam berbagai sektor.</li>
+            </ul>
+        </section>
+
+        <!-- Bagian Pemahaman Bermakna -->
+        <section class="card">
+            <h3 class="section-title">2. Pemahaman Bermakna</h3>
+            <p class="mb-4 text-gray-700">
+                Sistem modern yang kita gunakan sehari-hari (mulai dari streaming video hingga mobil otonom) didukung oleh arsitektur jaringan komputasional yang canggih, seperti cloud dan edge computing.
+            </p>
+            <p class="mb-4 text-gray-700">
+                Pemilihan arsitektur yang tepat sangat krusial untuk kinerja, efisiensi, dan skalabilitas sebuah sistem. Memahami arsitektur ini membantu kita melihat "otak" di balik teknologi yang kita gunakan.
+            </p>
+        </section>
+
+        <!-- Bagian Pertanyaan Pemantik -->
+        <section class="card">
+            <h3 class="section-title">3. Pertanyaan Pemantik</h3>
+            <p class="mb-4 text-gray-700">Mari kita renungkan beberapa pertanyaan berikut:</p>
+            <ul class="list-decimal pl-6 text-gray-700">
+                <li>Bagaimana aplikasi streaming video seperti YouTube atau Netflix bisa diakses oleh jutaan orang di seluruh dunia tanpa lag?</li>
+                <li>Mengapa mobil otonom harus bisa mengambil keputusan dalam hitungan milidetik tanpa terhubung ke internet yang jauh?</li>
+                <li>Apa bedanya menyimpan data di "awan" dengan menyimpan data di perangkat kita sendiri? Mana yang lebih baik?</li>
+                <li>Bagaimana teknologi cloud atau edge computing ini bisa membantu memecahkan masalah di daerah terpencil atau mendukung pengembangan komunitas kita, misalnya dalam pertanian cerdas atau sistem peringatan dini bencana?</li>
+            </ul>
+        </section>
+
+        <!-- Konsep Dasar Cloud Computing -->
+        <section class="card">
+            <h3 class="section-title">Konsep Dasar: Cloud Computing</h3>
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        **Cloud Computing** adalah model penyampaian layanan komputasi—termasuk server, penyimpanan, database, jaringan, perangkat lunak, analitik, dan intelijen—melalui internet ("awan"). Alih-alih memiliki dan memelihara infrastruktur komputasi Anda sendiri, Anda dapat mengakses layanan ini dari penyedia cloud seperti Google Cloud, Amazon Web Services (AWS), atau Microsoft Azure.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        Intinya, data dan aplikasi tidak disimpan di perangkat lokal Anda, melainkan di pusat data yang terpusat dan dapat diakses dari mana saja dengan koneksi internet.
+                    </p>
+                    <h4 class="subsection-title text-xl mt-4">Karakteristik Utama Cloud Computing:</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li>**Skalabilitas Tinggi:** Mudah menambah atau mengurangi sumber daya sesuai kebutuhan.</li>
+                        <li>**Akses Global:** Dapat diakses dari mana saja, kapan saja.</li>
+                        <li>**Biaya Efisien:** Model bayar sesuai penggunaan, mengurangi biaya awal infrastruktur.</li>
+                        <li>**Reliabilitas & Keamanan:** Penyedia cloud menawarkan redundansi dan fitur keamanan canggih.</li>
+                        <li>**Manajemen Terpusat:** Pengelolaan infrastruktur dilakukan oleh penyedia layanan.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://placehold.co/400x250/a78bfa/ffffff?text=Cloud+Computing" alt="Ilustrasi Cloud Computing" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Konsep Dasar Edge Computing -->
+        <section class="card">
+            <h3 class="section-title">Konsep Dasar: Edge Computing</h3>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        **Edge Computing** adalah paradigma komputasi terdistribusi yang membawa komputasi dan penyimpanan data lebih dekat ke sumber data, atau "tepi" jaringan. Ini berarti pemrosesan data terjadi di perangkat itu sendiri atau server kecil yang berlokasi dekat dengan perangkat yang menghasilkan data (misalnya, sensor IoT, kamera pintar, mobil otonom).
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        Tujuannya adalah untuk mengurangi latensi (waktu tunda) dan penggunaan bandwidth, terutama untuk aplikasi yang membutuhkan respons real-time atau memproses volume data yang sangat besar.
+                    </p>
+                    <h4 class="subsection-title text-xl mt-4">Karakteristik Utama Edge Computing:</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li>**Latensi Rendah:** Pemrosesan data sangat cepat karena dekat dengan sumber.</li>
+                        <li>**Penghematan Bandwidth:** Data mentah tidak perlu dikirim ke pusat data yang jauh.</li>
+                        <li>**Keamanan Lokal:** Data sensitif dapat diproses dan disimpan secara lokal.</li>
+                        <li>**Otonomi:** Perangkat dapat beroperasi bahkan saat koneksi internet terputus.</li>
+                        <li>**Fokus pada Data Real-time:** Ideal untuk aplikasi yang membutuhkan keputusan instan.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://placehold.co/400x250/60a5fa/ffffff?text=Edge+Computing" alt="Ilustrasi Edge Computing" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Perbedaan Mendasar -->
+        <section class="card">
+            <h3 class="section-title">Perbedaan Mendasar Cloud Computing vs. Edge Computing</h3>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kriteria Perbedaan</th>
+                            <th>Cloud Computing</th>
+                            <th>Edge Computing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**Lokasi Pemrosesan Data**</td>
+                            <td>Terpusat di pusat data yang jauh.</td>
+                            <td>Di dekat sumber data (perangkat atau server lokal).</td>
+                        </tr>
+                        <tr>
+                            <td>**Kecepatan Respon (Latensi)**</td>
+                            <td>Lebih tinggi karena data harus melakukan perjalanan jauh.</td>
+                            <td>Sangat rendah karena pemrosesan dekat sumber.</td>
+                        </tr>
+                        <tr>
+                            <td>**Kebutuhan Bandwidth**</td>
+                            <td>Tinggi, semua data dikirim ke cloud.</td>
+                            <td>Rendah, hanya data yang relevan/terproses dikirim ke cloud.</td>
+                        </tr>
+                        <tr>
+                            <td>**Skalabilitas**</td>
+                            <td>Sangat tinggi, mudah menambah/mengurangi kapasitas.</td>
+                            <td>Terbatas pada kapasitas perangkat/server edge yang ada.</td>
+                        </tr>
+                        <tr>
+                            <td>**Biaya Awal**</td>
+                            <td>Rendah (model bayar sesuai penggunaan).</td>
+                            <td>Bisa lebih tinggi (perlu investasi perangkat keras di tepi jaringan).</td>
+                        </tr>
+                        <tr>
+                            <td>**Otonomi Operasi**</td>
+                            <td>Membutuhkan koneksi internet stabil.</td>
+                            <td>Dapat beroperasi secara mandiri (offline) untuk fungsi dasar.</td>
+                        </tr>
+                        <tr>
+                            <td>**Contoh Aplikasi Umum**</td>
+                            <td>Penyimpanan file online (Google Drive), streaming video (Netflix), email.</td>
+                            <td>Mobil otonom, kamera keamanan pintar, _smart manufacturing_.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Peran dalam Sistem Modern -->
+        <section class="card">
+            <h3 class="section-title">Peran Cloud & Edge Computing dalam Sistem Modern</h3>
+            <p class="mb-4 text-gray-700">Kedua arsitektur ini seringkali bekerja sama dalam sistem modern yang kompleks. Berikut adalah peran spesifiknya:</p>
+
+            <h4 class="subsection-title">1. Internet of Things (IoT)</h4>
+            <p class="mb-3 text-gray-700">
+                Perangkat IoT (sensor, kamera, perangkat pintar) menghasilkan volume data yang sangat besar.
+            </p>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>**Peran Edge:** Memproses data sensor secara lokal untuk respons cepat (misal: smart home yang langsung menyalakan lampu saat ada gerakan). Mengurangi data yang dikirim ke cloud.</li>
+                <li>**Peran Cloud:** Menyimpan dan menganalisis data IoT dalam skala besar, melatih model AI, menyediakan _dashboard_ global, dan mengelola perangkat dari jarak jauh.</li>
+            </ul>
+
+            <h4 class="subsection-title">2. Kecerdasan Buatan (AI) & Machine Learning (ML)</h4>
+            <p class="mb-3 text-gray-700">
+                AI membutuhkan daya komputasi tinggi untuk pelatihan model dan inferensi.
+            </p>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>**Peran Edge:** Melakukan inferensi AI secara real-time di perangkat (misal: pengenalan wajah pada kamera keamanan, deteksi objek pada mobil otonom). Penting untuk aplikasi yang membutuhkan keputusan instan tanpa latensi jaringan.</li>
+                <li>**Peran Cloud:** Melatih model AI yang kompleks dengan _dataset_ besar, melakukan analisis _big data_ untuk _insight_, dan menyediakan layanan AI sebagai API.</li>
+            </ul>
+
+            <h4 class="subsection-title">3. Big Data Analytics</h4>
+            <p class="mb-3 text-gray-700">
+                Pemrosesan dan analisis set data yang sangat besar.
+            </p>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>**Peran Edge:** Melakukan _filtering_ dan agregasi data di sumber untuk mengurangi volume data yang dikirim ke cloud. Memproses data awal untuk _insight_ cepat.</li>
+                <li>**Peran Cloud:** Menyimpan, memproses, dan menganalisis _big data_ secara komprehensif menggunakan _framework_ seperti Hadoop atau Spark. Mengidentifikasi pola jangka panjang dan tren global.</li>
+            </ul>
+
+            <h4 class="subsection-title">4. Aplikasi Real-time (Gaming, AR/VR, Mobil Otonom)</h4>
+            <p class="mb-3 text-gray-700">
+                Aplikasi yang sangat sensitif terhadap latensi.
+            </p>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>**Peran Edge:** Krusial untuk meminimalkan latensi. Pemrosesan data dan pengambilan keputusan terjadi secepat mungkin di dekat pengguna/perangkat (misal: kontrol mobil otonom, respons _game online_ yang sangat cepat).</li>
+                <li>**Peran Cloud:** Menyimpan aset _game_ yang besar, mengelola profil pengguna, melakukan _matchmaking_, dan menyediakan _backend_ untuk fitur non-real-time.</li>
+            </ul>
+        </section>
+
+        <!-- Studi Kasus Interaktif -->
+        <section class="card">
+            <h3 class="section-title">Studi Kasus Interaktif: Identifikasi Arsitektur</h3>
+            <p class="mb-6 text-gray-700">Baca studi kasus di bawah ini, kemudian tentukan apakah aplikasi tersebut lebih dominan menggunakan Cloud Computing, Edge Computing, atau kombinasi keduanya. Jelaskan alasan Anda!</p>
+
+            <!-- Studi Kasus 1 -->
+            <div class="mb-8 p-6 bg-blue-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-blue-800">Studi Kasus 1: Sistem Kamera Keamanan Pintar di Rumah</h4>
+                <p class="mb-4 text-gray-700">
+                    Sebuah sistem kamera keamanan pintar di rumah Anda dapat mendeteksi gerakan dan langsung mengirimkan notifikasi ke ponsel pengguna dalam hitungan milidetik. Sistem ini juga dapat menyimpan rekaman video selama 7 hari di perangkat lokal sebelum mengunggahnya ke server untuk penyimpanan jangka panjang.
+                </p>
+                <form id="case1-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Arsitektur Dominan:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture1" value="cloud">
+                                <span class="ml-2 text-gray-700">Cloud Computing</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture1" value="edge">
+                                <span class="ml-2 text-gray-700">Edge Computing</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture1" value="hybrid">
+                                <span class="ml-2 text-gray-700">Kombinasi (Hybrid)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation1" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation1" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(1)">Cek Jawaban</button>
+                    <div id="feedback1" class="feedback-box hidden"></div>
+                </form>
+            </div>
+
+            <!-- Studi Kasus 2 -->
+            <div class="mb-8 p-6 bg-green-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-green-800">Studi Kasus 2: Platform Streaming Video Global (Netflix/YouTube)</h4>
+                <p class="mb-4 text-gray-700">
+                    Sebuah platform streaming video memungkinkan jutaan pengguna di seluruh dunia untuk menonton film dan serial dalam kualitas tinggi. Platform ini menyimpan katalog video yang sangat besar, mengelola rekomendasi personalisasi, dan melacak riwayat tontonan pengguna.
+                </p>
+                <form id="case2-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Arsitektur Dominan:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture2" value="cloud">
+                                <span class="ml-2 text-gray-700">Cloud Computing</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture2" value="edge">
+                                <span class="ml-2 text-gray-700">Edge Computing</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture2" value="hybrid">
+                                <span class="ml-2 text-gray-700">Kombinasi (Hybrid)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation2" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation2" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(2)">Cek Jawaban</button>
+                    <div id="feedback2" class="feedback-box hidden"></div>
+                </form>
+            </div>
+
+            <!-- Studi Kasus 3 -->
+            <div class="mb-8 p-6 bg-purple-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-purple-800">Studi Kasus 3: Kendaraan Otonom (Self-Driving Car)</h4>
+                <p class="mb-4 text-gray-700">
+                    Sebuah mobil otonom harus dapat mendeteksi pejalan kaki, kendaraan lain, rambu lalu lintas, dan mengambil keputusan pengereman atau akselerasi dalam hitungan milidetik untuk menghindari kecelakaan. Mobil ini juga mengumpulkan data perjalanan untuk pengembangan model AI di masa depan.
+                </p>
+                <form id="case3-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Arsitektur Dominan:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture3" value="cloud">
+                                <span class="ml-2 text-gray-700">Cloud Computing</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture3" value="edge">
+                                <span class="ml-2 text-gray-700">Edge Computing</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="architecture3" value="hybrid">
+                                <span class="ml-2 text-gray-700">Kombinasi (Hybrid)</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation3" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation3" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(3)">Cek Jawaban</button>
+                    <div id="feedback3" class="feedback-box hidden"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Kelebihan dan Kekurangan Umum -->
+        <section class="card">
+            <h3 class="section-title">Kelebihan dan Kekurangan Umum Arsitektur Jaringan Komputasional</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="subsection-title text-blue-700">Kelebihan (Umum)</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li>**Skalabilitas:** Kemampuan untuk menyesuaikan kapasitas sumber daya sesuai kebutuhan.</li>
+                        <li>**Efisiensi Biaya:** Mengurangi kebutuhan investasi awal pada infrastruktur fisik.</li>
+                        <li>**Fleksibilitas:** Memungkinkan akses dan pengelolaan data dari berbagai lokasi dan perangkat.</li>
+                        <li>**Inovasi Cepat:** Memudahkan pengembangan dan _deployment_ aplikasi baru.</li>
+                        <li>**Reliabilitas & Ketersediaan:** Umumnya menawarkan _uptime_ yang tinggi dan redundansi data.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection-title text-red-700">Kekurangan (Umum)</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li>**Ketergantungan Koneksi (Cloud):** Membutuhkan koneksi internet yang stabil dan cepat.</li>
+                        <li>**Latensi (Cloud):** Jarak fisik ke pusat data dapat menyebabkan waktu tunda.</li>
+                        <li>**Keamanan Data:** Kekhawatiran tentang privasi dan keamanan data yang disimpan di pihak ketiga.</li>
+                        <li>**Kompleksitas Manajemen:** Mengelola lingkungan hybrid (cloud dan edge) bisa jadi rumit.</li>
+                        <li>**Biaya Operasional Jangka Panjang:** Biaya dapat meningkat seiring dengan peningkatan penggunaan.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Penutup (Ringkasan Asesmen, Pengayaan, Remedial) -->
+        <section class="card">
+            <h3 class="section-title">Penutup Pembelajaran</h3>
+            <p class="mb-4 text-gray-700">
+                Pemahaman mengenai Cloud Computing dan Edge Computing adalah kunci untuk memahami bagaimana teknologi modern beroperasi dan terus berkembang.
+            </p>
+            <h4 class="subsection-title text-xl">Ringkasan Asesmen:</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>**Asesmen Diagnostik:** Untuk memetakan pengetahuan awal.</li>
+                <li>**Asesmen Formatif:** Observasi, tugas individu, produk kelompok (Peta Konsep/Infografis), presentasi, dan refleksi diri.</li>
+                <li>**Asesmen Sumatif:** Soal studi kasus terintegrasi dalam ujian semester.</li>
+            </ul>
+
+            <h4 class="subsection-title text-xl">Pengayaan & Remedial:</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li>**Pengayaan:** Bagi siswa yang unggul, eksplorasi "fog computing", analisis aplikasi besar, atau konsep virtualisasi/kontainerisasi.</li>
+                <li>**Remedial:** Bimbingan individual/kelompok kecil, contoh yang lebih sederhana, fokus pada pentingnya kecepatan dan lokasi pemrosesan data.</li>
+            </ul>
+        </section>
+
+        <!-- Referensi Tambahan -->
+        <section class="card">
+            <h3 class="section-title">Referensi & Sumber Belajar Tambahan</h3>
+            <p class="mb-4 text-gray-700">Untuk memperkaya pemahaman Anda, silakan kunjungi tautan berikut:</p>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li>**Video Penjelasan:**
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">What is Cloud Computing? (IBM Technology)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">What is Edge Computing? (IBM Technology)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">Cloud vs. Edge Computing: What's the Difference? (Simplilearn)</a></li>
+                    </ul>
+                </li>
+                <li>**Infografis/Artikel Ringkas:**
+                    <ul>
+                        <li><a href="https://www.cloudflare.com/learning/cloud/what-is-cloud-computing/" target="_blank" class="text-blue-600 hover:underline">Cloud Computing Explained (Cloudflare)</a></li>
+                        <li><a href="https://www.cloudflare.com/learning/cloud/what-is-edge-computing/" target="_blank" class="text-blue-600 hover:underline">Edge Computing Explained (Cloudflare)</a></li>
+                        <li><a href="https://www.techtarget.com/searchdatacenter/feature/Cloud-vs-edge-computing-A-comparison" target="_blank" class="text-blue-600 hover:underline">Cloud vs. Edge Computing: A Comparison (TechTarget)</a></li>
+                    </ul>
+                </li>
+                <li>**Contoh Studi Kasus Aplikasi Modern:**
+                    <ul>
+                        <li><a href="https://www.ibm.com/blogs/internet-of-things/iot-applications/" target="_blank" class="text-blue-600 hover:underline">IoT Applications: Real-World Examples (IBM)</a></li>
+                        <li>Cari artikel tentang "How Netflix Uses Cloud Computing" (Netflix TechBlog).</li>
+                        <li>Cari sumber tentang "Autonomous Driving: Edge AI vs. Cloud AI" (NVIDIA).</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="text-sm text-gray-500 mt-4"><em>Catatan Penting: Selalu periksa ulang tautan sebelum digunakan dan evaluasi kebenaran konten dari sumber online.</em></p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-10 pt-6 border-t border-gray-200 text-gray-500 text-sm">
+            <p>&copy; 2025 MAN Sidoarjo. Semua Hak Dilindungi.</p>
+            <p>Dibuat dengan semangat pembelajaran dan inovasi.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data studi kasus dan jawaban yang benar
+        const caseStudies = {
+            1: {
+                correctAnswer: 'hybrid',
+                explanation: 'Sistem kamera keamanan pintar ini menggunakan **Edge Computing** untuk deteksi gerakan real-time dan notifikasi instan (meminimalkan latensi) serta penyimpanan rekaman jangka pendek. Namun, untuk penyimpanan jangka panjang dan potensi analisis data yang lebih besar (misalnya, untuk melihat tren atau melatih model AI baru), data diunggah ke **Cloud Computing**. Ini adalah contoh klasik dari arsitektur **Hybrid**.'
+            },
+            2: {
+                correctAnswer: 'cloud',
+                explanation: 'Platform streaming video global seperti Netflix atau YouTube sangat bergantung pada **Cloud Computing**. Mereka membutuhkan penyimpanan data yang sangat besar untuk katalog video, skalabilitas tinggi untuk melayani jutaan pengguna secara bersamaan di seluruh dunia, dan kemampuan untuk melakukan personalisasi serta analisis _big data_ yang kompleks. Meskipun CDN (Content Delivery Network, yang bisa dianggap sebagai bentuk edge) digunakan untuk pengiriman konten yang lebih cepat, tulang punggung utamanya adalah infrastruktur cloud.'
+            },
+            3: {
+                correctAnswer: 'hybrid',
+                explanation: 'Kendaraan otonom adalah contoh sempurna dari arsitektur **Hybrid**. Keputusan krusial yang membutuhkan respons milidetik (seperti pengereman, deteksi objek) harus diproses secara lokal di dalam mobil menggunakan **Edge Computing** untuk latensi yang sangat rendah. Namun, mobil juga mengumpulkan data dalam jumlah besar untuk diunggah ke **Cloud Computing** guna melatih model AI yang lebih baik, memperbarui peta, dan melakukan analisis performa jangka panjang. Jadi, ini adalah kombinasi yang kuat dari keduanya.'
+            }
+        };
+
+        /**
+         * Fungsi untuk menampilkan pesan modal kustom.
+         * Menggantikan alert() dan confirm() yang tidak boleh digunakan.
+         * @param {string} title - Judul modal.
+         * @param {string} message - Pesan yang akan ditampilkan.
+         * @param {string} type - Tipe pesan (correct, incorrect, warning).
+         */
+        function showCustomMessage(title, message, type) {
+            const modalId = 'customModal';
+            let modal = document.getElementById(modalId);
+
+            // Buat modal jika belum ada
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = modalId;
+                modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 p-4';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+                        <h3 id="modalTitle" class="text-2xl font-bold mb-4"></h3>
+                        <p id="modalMessage" class="text-gray-700 mb-6"></p>
+                        <button id="modalCloseBtn" class="btn-primary w-full">Tutup</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Tambahkan event listener untuk tombol tutup
+                document.getElementById('modalCloseBtn').addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
+            }
+
+            // Setel konten dan styling modal
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').innerHTML = message; // Gunakan innerHTML untuk mendukung tag HTML
+            
+            const modalContent = modal.querySelector('div');
+            modalContent.classList.remove('bg-green-100', 'bg-red-100', 'bg-yellow-100', 'text-green-800', 'text-red-800', 'text-yellow-800');
+            if (type === 'correct') {
+                modalContent.classList.add('bg-green-100', 'text-green-800');
+            } else if (type === 'incorrect') {
+                modalContent.classList.add('bg-red-100', 'text-red-800');
+            } else if (type === 'warning') {
+                modalContent.classList.add('bg-yellow-100', 'text-yellow-800');
+            } else {
+                modalContent.classList.add('bg-white', 'text-gray-800');
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        /**
+         * Fungsi untuk memeriksa jawaban studi kasus.
+         * @param {number} caseNum - Nomor studi kasus (1, 2, 3).
+         */
+        function checkCaseStudy(caseNum) {
+            const form = document.getElementById(`case${caseNum}-form`);
+            const selectedArchitecture = form.querySelector(`input[name="architecture${caseNum}"]:checked`);
+            const explanation = document.getElementById(`explanation${caseNum}`).value.trim();
+            const feedbackDiv = document.getElementById(`feedback${caseNum}`);
+            const correctData = caseStudies[caseNum];
+
+            // Reset feedback div
+            feedbackDiv.classList.add('hidden');
+            feedbackDiv.classList.remove('feedback-correct', 'feedback-incorrect', 'feedback-warning');
+            feedbackDiv.innerHTML = '';
+
+            if (!selectedArchitecture) {
+                showCustomMessage('Peringatan', 'Mohon pilih salah satu arsitektur sebelum memeriksa jawaban.', 'warning');
+                return;
+            }
+
+            if (explanation === '') {
+                showCustomMessage('Peringatan', 'Mohon berikan penjelasan Anda.', 'warning');
+                return;
+            }
+
+            const isCorrect = selectedArchitecture.value === correctData.correctAnswer;
+            let feedbackMessage = '';
+            let feedbackType = '';
+
+            if (isCorrect) {
+                feedbackMessage = `
+                    <p class="font-bold">Jawaban Anda Benar!</p>
+                    <p>Penjelasan yang tepat:</p>
+                    <p>${correctData.explanation}</p>
+                `;
+                feedbackType = 'correct';
+            } else {
+                feedbackMessage = `
+                    <p class="font-bold">Jawaban Anda Kurang Tepat.</p>
+                    <p>Penjelasan yang tepat:</p>
+                    <p>${correctData.explanation}</p>
+                `;
+                feedbackType = 'incorrect';
+            }
+
+            feedbackDiv.innerHTML = feedbackMessage;
+            feedbackDiv.classList.add(feedbackType);
+            feedbackDiv.classList.remove('hidden');
+
+            // Scroll to feedback for better UX on smaller screens
+            feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
