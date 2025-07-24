@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Ajar Informatika: Prinsip Tata Kelola Data</title>
+    <!-- Tailwind CSS CDN untuk styling yang responsif dan modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Warna latar belakang abu-abu muda */
+            color: #374151; /* Warna teks gelap */
+        }
+        .container {
+            max-width: 1000px;
+        }
+        /* Styling untuk tombol */
+        .btn-primary {
+            @apply bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out;
+        }
+        /* Styling untuk kartu/bagian */
+        .card {
+            @apply bg-white p-6 rounded-xl shadow-lg mb-8;
+        }
+        /* Styling untuk judul bagian */
+        .section-title {
+            @apply text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2;
+        }
+        /* Styling untuk sub-judul */
+        .subsection-title {
+            @apply text-2xl font-semibold text-gray-700 mb-4;
+        }
+        /* Styling untuk daftar */
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        /* Styling untuk tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; /* Warna border abu-abu */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #e0f2fe; /* Warna latar belakang header tabel */
+            font-weight: 600;
+            color: #1f2937;
+        }
+        /* Styling untuk feedback studi kasus */
+        .feedback-box {
+            @apply mt-4 p-4 rounded-lg;
+        }
+        .feedback-correct {
+            @apply bg-green-100 text-green-800 border border-green-300;
+        }
+        .feedback-incorrect {
+            @apply bg-red-100 text-red-800 border border-red-300;
+        }
+        .feedback-warning {
+            @apply bg-yellow-100 text-yellow-800 border border-yellow-300;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <!-- Variabel global yang diperlukan untuk Firebase, meskipun tidak digunakan dalam contoh ini -->
+    <script>
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Log untuk debugging (opsional)
+        console.log("App ID:", appId);
+        console.log("Firebase Config:", firebaseConfig);
+        console.log("Initial Auth Token:", initialAuthToken);
+    </script>
+
+    <div class="container mx-auto bg-white rounded-xl shadow-xl p-6 sm:p-10">
+        <!-- Header Modul -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-700 mb-4">Modul Ajar Informatika</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-2">Prinsip Tata Kelola Data dalam Sistem Skala Besar</h2>
+            <p class="text-lg text-gray-600">Untuk Siswa SMA/MA Fase F / XII</p>
+        </header>
+
+        <!-- Bagian Tujuan Pembelajaran -->
+        <section class="card">
+            <h3 class="section-title">1. Tujuan Pembelajaran</h3>
+            <p class="mb-4">Setelah mempelajari modul ini, Anda diharapkan mampu:</p>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li>Menjelaskan definisi dan pentingnya tata kelola data dalam sistem modern.</li>
+                <li>Memahami prinsip-prinsip utama tata kelola data: <b>Privasi</b>, <b>Integritas</b>, dan <b>Ketersediaan</b>.</li>
+                <li>Mengidentifikasi contoh penerapan prinsip tata kelola data dalam sistem skala besar (misalnya, media sosial, e-commerce, layanan pemerintah).</li>
+                <li>Menganalisis skenario kasus sederhana terkait pelanggaran tata kelola data dan mengusulkan langkah-langkah untuk menjaga prinsip-prinsip tersebut.</li>
+                <li>Merefleksikan tanggung jawab etis dan hukum dalam pengelolaan serta penggunaan data di era digital.</li>
+            </ul>
+        </section>
+
+        <!-- Bagian Pemahaman Bermakna -->
+        <section class="card">
+            <h3 class="section-title">2. Pemahaman Bermakna</h3>
+            <p class="mb-4 text-gray-700">
+                Di era <b>big data</b>, pengelolaan data yang baik (tata kelola data) adalah kunci untuk memastikan data akurat, aman, dan dapat diakses, sehingga dapat digunakan untuk pengambilan keputusan yang tepat.
+            </p>
+            <p class="mb-4 text-gray-700">
+                Prinsip privasi, integritas, dan ketersediaan data adalah pilar utama yang menjaga kepercayaan publik terhadap sistem digital.
+            </p>
+            <p class="mb-4 text-gray-700">
+                Setiap individu, sebagai pengguna dan potensial pengelola data, memiliki peran penting dalam menjaga ekosistem data yang sehat dan etis.
+            </p>
+        </section>
+
+        <!-- Bagian Pertanyaan Pemantik -->
+        <section class="card">
+            <h3 class="section-title">3. Pertanyaan Pemantik</h3>
+            <p class="mb-4 text-gray-700">Mari kita renungkan beberapa pertanyaan berikut:</p>
+            <ul class="list-decimal pl-6 text-gray-700">
+                <li>Bagaimana sebuah platform media sosial raksasa bisa mengelola data jutaan penggunanya setiap detik?</li>
+                <li>Mengapa kita sering mendengar berita tentang "kebocoran data"? Apa dampaknya bagi kita?</li>
+                <li>Apa yang terjadi jika data nilai kalian di sekolah tiba-tiba berubah tanpa izin, atau tidak bisa diakses saat dibutuhkan?</li>
+                <li>Bagaimana prinsip menjaga amanah dan kejujuran dalam ajaran agama kita dapat diterapkan dalam tata kelola data, terutama data pribadi orang lain?</li>
+            </ul>
+        </section>
+
+        <!-- Konsep Dasar Tata Kelola Data -->
+        <section class="card">
+            <h3 class="section-title">Konsep Dasar: Tata Kelola Data</h3>
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        <b>Tata Kelola Data</b> adalah keseluruhan manajemen ketersediaan, kegunaan, integritas, dan keamanan data yang digunakan dalam suatu organisasi. Ini mencakup kebijakan, prosedur, dan teknologi yang memastikan data dikelola dengan baik sepanjang siklus hidupnya.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        Di era digital saat ini, di mana data menjadi aset yang sangat berharga, tata kelola data menjadi krusial untuk menjaga kepercayaan, mematuhi regulasi, dan mendukung pengambilan keputusan yang akurat.
+                    </p>
+                    <h4 class="subsection-title text-xl mt-4">Pentingnya Tata Kelola Data:</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li>Memastikan kualitas data (akurasi, kelengkapan, konsistensi).</li>
+                        <li>Melindungi data dari akses tidak sah atau penyalahgunaan.</li>
+                        <li>Memastikan data tersedia saat dibutuhkan.</li>
+                        <li>Mendukung kepatuhan terhadap peraturan dan hukum (misal: UU PDP).</li>
+                        <li>Meningkatkan kepercayaan pengguna dan pemangku kepentingan.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://content.infopay.net/storage/thumbnails/30KyALPOdd6aTqVJ65CaN5t8baWqq5aHXQsltnfh.webp" alt="Ilustrasi Tata Kelola Data" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Prinsip-prinsip Utama Tata Kelola Data -->
+        <section class="card">
+            <h3 class="section-title">Prinsip-prinsip Utama Tata Kelola Data</h3>
+            <p class="mb-4 text-gray-700">Ada tiga pilar utama dalam tata kelola data yang sering disebut sebagai **CIA Triad** (Confidentiality, Integrity, Availability):</p>
+
+            <h4 class="subsection-title text-blue-700">1. Privasi (Confidentiality)</h4>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        <b>Privasi data</b> adalah hak individu untuk mengontrol informasi pribadi mereka dan bagaimana informasi tersebut dikumpulkan, digunakan, dan dibagikan. Ini memastikan bahwa data hanya dapat diakses oleh pihak yang berwenang dan untuk tujuan yang telah disetujui.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        <b>Contoh Pelanggaran Privasi:</b> Kebocoran data pribadi (nama, alamat, nomor telepon), penggunaan data untuk iklan tanpa persetujuan, penjualan data pengguna kepada pihak ketiga.
+                    </p>
+                    <p class="text-gray-700">
+                        Di Indonesia, Undang-Undang Perlindungan Data Pribadi (UU PDP) menjadi dasar hukum untuk menjaga privasi data.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://www.enzuzo.com/hubfs/%E2%80%9CData-Privacy%E2%80%9D-M-2.jpg" alt="Ilustrasi Privasi Data" class="rounded-lg shadow-md">
+                </div>
+            </div>
+
+            <h4 class="subsection-title text-green-700 mt-8">2. Integritas (Integrity)</h4>
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        <b>Integritas data</b> berarti data harus akurat, lengkap, konsisten, dan tidak diubah tanpa izin atau tanpa terdeteksi. Ini memastikan bahwa data yang Anda gunakan dapat dipercaya dan mencerminkan kondisi yang sebenarnya.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        <b>Contoh Pelanggaran Integritas:</b> Manipulasi nilai siswa di sistem sekolah, data transaksi keuangan yang salah, informasi medis pasien yang diubah tanpa otorisasi.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://www.precisely.com/wp-content/uploads/2024/07/Data-Integrity-Suite-Graphic_768x762-800x800.png" alt="Ilustrasi Integritas Data" class="rounded-lg shadow-md">
+                </div>
+            </div>
+
+            <h4 class="subsection-title text-red-700 mt-8">3. Ketersediaan (Availability)</h4>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        <b>Ketersediaan data</b> memastikan bahwa data dan sistem yang mengelolanya selalu dapat diakses oleh pengguna yang berwenang kapan pun dibutuhkan. Ini penting agar layanan dapat berjalan tanpa gangguan.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        <b>Contoh Pelanggaran Ketersediaan:</b> Sistem _server down_ sehingga layanan perbankan tidak bisa diakses, data hilang akibat bencana atau serangan siber, website pemerintah tidak bisa dibuka saat dibutuhkan.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://www.tibco.com/content/dam/tibco/images/graphics/infographics/data-availability.svg" alt="Ilustrasi Ketersediaan Data" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Studi Kasus Interaktif -->
+        <section class="card">
+            <h3 class="section-title">Studi Kasus Interaktif: Identifikasi Prinsip Tata Kelola Data</h3>
+            <p class="mb-6 text-gray-700">Baca studi kasus di bawah ini, kemudian tentukan prinsip tata kelola data apa yang dilanggar. Jelaskan alasan Anda!</p>
+
+            <!-- Studi Kasus 1: Privasi -->
+            <div class="mb-8 p-6 bg-blue-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-blue-800">Studi Kasus 1: Kebocoran Data Media Sosial</h4>
+                <p class="mb-4 text-gray-700">
+                    Sebuah platform media sosial populer mengalami insiden keamanan. Data pribadi jutaan penggunanya, termasuk nama lengkap, alamat email, dan nomor telepon, ditemukan dijual di forum gelap di internet. Pihak platform mengakui adanya kerentanan yang menyebabkan data tersebut terekspos tanpa izin pengguna.
+                </p>
+                <form id="case1-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Prinsip yang Dilanggar:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="principle1" value="privasi">
+                                <span class="ml-2 text-gray-700">Privasi</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="principle1" value="integritas">
+                                <span class="ml-2 text-gray-700">Integritas</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="principle1" value="ketersediaan">
+                                <span class="ml-2 text-gray-700">Ketersediaan</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation1" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation1" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(1)">Cek Jawaban</button>
+                    <div id="feedback1" class="feedback-box hidden"></div>
+                </form>
+            </div>
+
+            <!-- Studi Kasus 2: Integritas -->
+            <div class="mb-8 p-6 bg-green-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-green-800">Studi Kasus 2: Perubahan Data Nilai Siswa</h4>
+                <p class="mb-4 text-gray-700">
+                    Di sebuah sistem informasi akademik sekolah, beberapa siswa menemukan bahwa nilai mata pelajaran mereka tiba-tiba berubah menjadi lebih rendah atau lebih tinggi tanpa ada pemberitahuan atau alasan yang jelas dari guru. Setelah diselidiki, ternyata ada celah keamanan yang memungkinkan pihak tidak berwenang memanipulasi data nilai.
+                </p>
+                <form id="case2-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Prinsip yang Dilanggar:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="principle2" value="privasi">
+                                <span class="ml-2 text-gray-700">Privasi</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="principle2" value="integritas">
+                                <span class="ml-2 text-gray-700">Integritas</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="principle2" value="ketersediaan">
+                                <span class="ml-2 text-gray-700">Ketersediaan</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation2" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation2" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(2)">Cek Jawaban</button>
+                    <div id="feedback2" class="feedback-box hidden"></div>
+                </form>
+            </div>
+
+            <!-- Studi Kasus 3: Ketersediaan -->
+            <div class="mb-8 p-6 bg-purple-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-purple-800">Studi Kasus 3: Sistem Pendaftaran Online Gagal Diakses</h4>
+                <p class="mb-4 text-gray-700">
+                    Saat hari pertama pendaftaran online untuk beasiswa dibuka, situs web pendaftaran tiba-tiba mengalami _down_ dan tidak bisa diakses selama beberapa jam. Akibatnya, banyak calon pendaftar tidak bisa mengirimkan berkas mereka tepat waktu, menyebabkan kekecewaan dan penundaan proses.
+                </p>
+                <form id="case3-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Prinsip yang Dilanggar:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="principle3" value="privasi">
+                                <span class="ml-2 text-gray-700">Privasi</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="principle3" value="integritas">
+                                <span class="ml-2 text-gray-700">Integritas</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="principle3" value="ketersediaan">
+                                <span class="ml-2 text-gray-700">Ketersediaan</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation3" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation3" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(3)">Cek Jawaban</button>
+                    <div id="feedback3" class="feedback-box hidden"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Kelebihan dan Kekurangan Umum Tata Kelola Data -->
+        <section class="card">
+            <h3 class="section-title">Mengapa Tata Kelola Data Penting?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="subsection-title text-blue-700">Manfaat Tata Kelola Data</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li><b>Meningkatkan Kepercayaan:</b> Pengguna lebih percaya pada sistem yang menjaga data mereka.</li>
+                        <li><b>Kualitas Data Terjamin:</b> Data akurat dan konsisten mendukung keputusan yang lebih baik.</li>
+                        <li><b>Kepatuhan Regulasi:</b> Memenuhi persyaratan hukum seperti UU PDP.</li>
+                        <li><b>Mengurangi Risiko:</b> Mencegah kebocoran data, manipulasi, atau kehilangan data.</li>
+                        <li><b>Efisiensi Operasional:</b> Data yang terkelola baik lebih mudah diakses dan digunakan.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="subsection-title text-red-700">Tantangan Tata Kelola Data</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li><b>Kompleksitas:</b> Mengelola data dalam sistem skala besar sangat rumit.</li>
+                        <li><b>Biaya:</b> Membutuhkan investasi pada teknologi dan sumber daya manusia.</li>
+                        <li><b>Perubahan Teknologi:</b> Harus terus beradaptasi dengan ancaman dan teknologi baru.</li>
+                        <li><b>Kesadaran Pengguna:</b> Membutuhkan edukasi agar pengguna juga berpartisipasi aktif.</li>
+                        <li><b>Keseimbangan:</b> Menemukan keseimbangan antara aksesibilitas dan keamanan data.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bagian Penutup (Ringkasan) -->
+        <section class="card">
+            <h3 class="section-title">Ringkasan Pembelajaran</h3>
+            <p class="mb-4 text-gray-700">
+                Memahami prinsip <b>Privasi</b>, <b>Integritas</b>, dan <b>Ketersediaan</b> data adalah fundamental dalam dunia digital. Sebagai warga digital, kita memiliki peran penting dalam menjaga ekosistem data yang sehat dan bertanggung jawab.
+            </p>
+        </section>
+
+        <!-- Referensi Tambahan -->
+        <section class="card">
+            <h3 class="section-title">Referensi & Sumber Belajar Tambahan</h3>
+            <p class="mb-4 text-gray-700">Untuk memperkaya pemahaman Anda, silakan kunjungi tautan berikut:</p>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li><b>Video Penjelasan Tata Kelola Data dan Prinsipnya:</b>
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">What is Data Governance? (IBM Technology)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">Data Privacy Explained (Google Safety Center)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">Data Integrity Explained (Simplilearn)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">Data Availability Explained (Cloudflare)</a></li>
+                    </ul>
+                </li>
+                <li><b>Infografis/Artikel Ringkas tentang Tata Kelola Data:</b>
+                    <ul>
+                        <li><a href="https://www.atlassian.com/data-governance/what-is-data-governance" target="_blank" class="text-blue-600 hover:underline">What is Data Governance? A Complete Guide (Atlassian)</a></li>
+                        <li><a href="https://www.comptia.org/content/guides/what-is-the-cia-triad" target="_blank" class="text-blue-600 hover:underline">The CIA Triad: Confidentiality, Integrity, and Availability (CompTIA)</a></li>
+                        <li>Cari ringkasan "Undang-Undang Perlindungan Data Pribadi (UU PDP) Indonesia" dari sumber resmi.</li>
+                    </ul>
+                </li>
+                <li><b>Contoh Studi Kasus Pelanggaran Data:</b>
+                    <ul>
+                        <li>Cari berita tentang Kasus Kebocoran Data di Indonesia (misal: data BPJS, e-commerce).</li>
+                        <li>Cari berita tentang Kasus Sistem Down pada Layanan Publik.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p class="text-sm text-gray-500 mt-4"><em>Catatan Penting: Selalu periksa ulang tautan sebelum digunakan dan evaluasi kebenaran konten dari sumber online.</em></p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-10 pt-6 border-t border-gray-200 text-gray-500 text-sm">
+            <p>&copy; 2025 Andy Mohammad Teguh. Semua Hak Dilindungi.</p>
+            <p>Dibuat dengan semangat pembelajaran dan inovasi.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data studi kasus dan jawaban yang benar
+        const caseStudies = {
+            1: {
+                correctAnswer: 'privasi',
+                explanation: 'Pelanggaran yang terjadi adalah <b>Privasi</b>. Data pribadi pengguna (nama, email, nomor telepon) bocor dan diakses oleh pihak yang tidak berwenang tanpa izin, yang merupakan inti dari pelanggaran privasi data.'
+            },
+            2: {
+                correctAnswer: 'integritas',
+                explanation: 'Pelanggaran yang terjadi adalah <b>Integritas</b>. Data nilai siswa diubah tanpa otorisasi, sehingga data tersebut menjadi tidak akurat, tidak lengkap, atau tidak konsisten dari kondisi seharusnya. Ini merusak kepercayaan terhadap kebenaran data.'
+            },
+            3: {
+                correctAnswer: 'ketersediaan',
+                explanation: 'Pelanggaran yang terjadi adalah <b>Ketersediaan</b>. Sistem pendaftaran tidak dapat diakses saat dibutuhkan, yang berarti data dan layanan tidak tersedia bagi pengguna yang berwenang. Ini menghambat proses dan menyebabkan kerugian.'
+            }
+        };
+
+        /**
+         * Fungsi untuk menampilkan pesan modal kustom.
+         * Menggantikan alert() dan confirm() yang tidak boleh digunakan.
+         * @param {string} title - Judul modal.
+         * @param {string} message - Pesan yang akan ditampilkan.
+         * @param {string} type - Tipe pesan (correct, incorrect, warning).
+         */
+        function showCustomMessage(title, message, type) {
+            const modalId = 'customModal';
+            let modal = document.getElementById(modalId);
+
+            // Buat modal jika belum ada
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = modalId;
+                modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 p-4';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+                        <h3 id="modalTitle" class="text-2xl font-bold mb-4"></h3>
+                        <p id="modalMessage" class="text-gray-700 mb-6"></p>
+                        <button id="modalCloseBtn" class="btn-primary w-full">Tutup</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Tambahkan event listener untuk tombol tutup
+                document.getElementById('modalCloseBtn').addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
+            }
+
+            // Setel konten dan styling modal
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').innerHTML = message; // Gunakan innerHTML untuk mendukung tag HTML
+            
+            const modalContent = modal.querySelector('div');
+            modalContent.classList.remove('bg-green-100', 'bg-red-100', 'bg-yellow-100', 'text-green-800', 'text-red-800', 'text-yellow-800');
+            if (type === 'correct') {
+                modalContent.classList.add('bg-green-100', 'text-green-800');
+            } else if (type === 'incorrect') {
+                modalContent.classList.add('bg-red-100', 'text-red-800');
+            } else if (type === 'warning') {
+                modalContent.classList.add('bg-yellow-100', 'text-yellow-800');
+            } else {
+                modalContent.classList.add('bg-white', 'text-gray-800');
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        /**
+         * Fungsi untuk memeriksa jawaban studi kasus.
+         * @param {number} caseNum - Nomor studi kasus (1, 2, 3).
+         */
+        function checkCaseStudy(caseNum) {
+            const form = document.getElementById(`case${caseNum}-form`);
+            const selectedPrinciple = form.querySelector(`input[name="principle${caseNum}"]:checked`);
+            const explanation = document.getElementById(`explanation${caseNum}`).value.trim();
+            const feedbackDiv = document.getElementById(`feedback${caseNum}`);
+            const correctData = caseStudies[caseNum];
+
+            // Reset feedback div
+            feedbackDiv.classList.add('hidden');
+            feedbackDiv.classList.remove('feedback-correct', 'feedback-incorrect', 'feedback-warning');
+            feedbackDiv.innerHTML = '';
+
+            if (!selectedPrinciple) {
+                showCustomMessage('Peringatan', 'Mohon pilih salah satu prinsip sebelum memeriksa jawaban.', 'warning');
+                return;
+            }
+
+            if (explanation === '') {
+                showCustomMessage('Peringatan', 'Mohon berikan penjelasan Anda.', 'warning');
+                return;
+            }
+
+            const isCorrect = selectedPrinciple.value === correctData.correctAnswer;
+            let feedbackMessage = '';
+            let feedbackType = '';
+
+            if (isCorrect) {
+                feedbackMessage = `
+                    <p class="font-bold">Jawaban Anda Benar!</p>
+                    <p>Penjelasan yang tepat:</p>
+                    <p>${correctData.explanation}</p>
+                `;
+                feedbackType = 'correct';
+            } else {
+                feedbackMessage = `
+                    <p class="font-bold">Jawaban Anda Kurang Tepat.</p>
+                    <p>Penjelasan yang tepat:</p>
+                    <p>${correctData.explanation}</p>
+                `;
+                feedbackType = 'incorrect';
+            }
+
+            feedbackDiv.innerHTML = feedbackMessage;
+            feedbackDiv.classList.add(feedbackType);
+            feedbackDiv.classList.remove('hidden');
+
+            // Scroll to feedback for better UX on smaller screens
+            feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
