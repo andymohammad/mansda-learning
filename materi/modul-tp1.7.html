@@ -164,7 +164,7 @@
         <!-- Prinsip-prinsip Utama Tata Kelola Data -->
         <section class="card">
             <h3 class="section-title">Prinsip-prinsip Utama Tata Kelola Data</h3>
-            <p class="mb-4 text-gray-700">Ada tiga pilar utama dalam tata kelola data yang sering disebut sebagai **CIA Triad** (Confidentiality, Integrity, Availability):</p>
+            <p class="mb-4 text-gray-700">Ada tiga pilar utama dalam tata kelola data yang sering disebut sebagai <b>CIA Triad</b> (Confidentiality, Integrity, Availability):</p>
 
             <h4 class="subsection-title text-blue-700">1. Privasi (Confidentiality)</h4>
             <div class="flex flex-col md:flex-row-reverse items-center gap-6 mb-6">
@@ -231,14 +231,14 @@
                     <ul class="list-disc pl-6 text-gray-700">
                         <li><b>Cyber Attack:</b> Serangan yang bertujuan merusak, mengganggu, atau mencuri data dari sistem komputer atau jaringan. Contoh:
                             <ul>
-                                <li>**Malware:** Perangkat lunak berbahaya (virus, ransomware, spyware) yang merusak atau mencuri data.</li>
-                                <li>**Phishing:** Upaya menipu korban agar memberikan informasi sensitif (password, detail kartu kredit) melalui email atau situs web palsu.</li>
-                                <li>**DDoS (Distributed Denial of Service):** Serangan yang membanjiri server dengan lalu lintas palsu hingga menyebabkan layanan tidak bisa diakses.</li>
+                                <li><b>Malware:</b> Perangkat lunak berbahaya (virus, ransomware, spyware) yang merusak atau mencuri data.</li>
+                                <li><b>Phishing:</b> Upaya menipu korban agar memberikan informasi sensitif (password, detail kartu kredit) melalui email atau situs web palsu.</li>
+                                <li><b>DDoS (Distributed Denial of Service):</b> Serangan yang membanjiri server dengan lalu lintas palsu hingga menyebabkan layanan tidak bisa diakses.</li>
                             </ul>
                         </li>
                         <li><b>Cyber Terrorism:</b> Penggunaan teknologi informasi dan komunikasi (terutama internet) untuk melakukan tindakan terorisme, seperti mengganggu infrastruktur penting (listrik, air, transportasi) atau menyebarkan propaganda ekstremis.</li>
-                        <li>**Pencurian Identitas:** Mengambil dan menggunakan informasi pribadi seseorang tanpa izin untuk keuntungan finansial.</li>
-                        <li>**Penipuan Online:** Berbagai skema penipuan yang dilakukan melalui internet (misal: penipuan investasi, undian palsu).</li>
+                        <li><b>Pencurian Identitas:</b> Mengambil dan menggunakan informasi pribadi seseorang tanpa izin untuk keuntungan finansial.</li>
+                        <li><b>Penipuan Online:</li>b> Berbagai skema penipuan yang dilakukan melalui internet (misal: penipuan investasi, undian palsu).</li>
                     </ul>
                 </div>
                 <div class="md:w-1/2 flex justify-center">
@@ -321,7 +321,7 @@
                 </li>
             </ul>
         </section>
-        
+
         <!-- Studi Kasus Interaktif -->
         <section class="card">
             <h3 class="section-title">Studi Kasus Interaktif: Identifikasi Prinsip Tata Kelola Data</h3>
@@ -501,7 +501,7 @@
                     </ul>
                 </li>
             </ul>
-            <p class="text-sm text-gray-500 mt-4"><em>Catatan Penting: Selalu periksa ulang tautan sebelum digunakan dan evaluasi kebenaran konten dari sumber online.</em></p>
+            
         </section>
 
         <!-- Footer -->
@@ -527,14 +527,6 @@
                 explanation: 'Pelanggaran yang terjadi adalah <b>Ketersediaan</b>. Sistem pendaftaran tidak dapat diakses saat dibutuhkan, yang berarti data dan layanan tidak tersedia bagi pengguna yang berwenang. Ini menghambat proses dan menyebabkan kerugian.'
             }
         };
-
-        /**
-         * Fungsi untuk menampilkan pesan modal kustom.
-         * Menggantikan alert() dan confirm() yang tidak boleh digunakan.
-         * @param {string} title - Judul modal.
-         * @param {string} message - Pesan yang akan ditampilkan.
-         * @param {string} type - Tipe pesan (correct, incorrect, warning).
-         */
         function showCustomMessage(title, message, type) {
             const modalId = 'customModal';
             let modal = document.getElementById(modalId);
@@ -577,11 +569,6 @@
 
             modal.classList.remove('hidden');
         }
-
-        /**
-         * Fungsi untuk memeriksa jawaban studi kasus.
-         * @param {number} caseNum - Nomor studi kasus (1, 2, 3).
-         */
         function checkCaseStudy(caseNum) {
             const form = document.getElementById(`case${caseNum}-form`);
             const selectedPrinciple = form.querySelector(`input[name="principle${caseNum}"]:checked`);

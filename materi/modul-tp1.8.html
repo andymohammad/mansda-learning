@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Ajar Informatika: Keamanan Jaringan Tingkat Lanjut</title>
+    <!-- Tailwind CSS CDN untuk styling yang responsif dan modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Warna latar belakang abu-abu muda */
+            color: #374151; /* Warna teks gelap */
+        }
+        .container {
+            max-width: 1000px;
+        }
+        /* Styling untuk tombol */
+        .btn-primary {
+            @apply bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 ease-in-out;
+        }
+        /* Styling untuk kartu/bagian */
+        .card {
+            @apply bg-white p-6 rounded-xl shadow-lg mb-8;
+        }
+        /* Styling untuk judul bagian */
+        .section-title {
+            @apply text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2;
+        }
+        /* Styling untuk sub-judul */
+        .subsection-title {
+            @apply text-2xl font-semibold text-gray-700 mb-4;
+        }
+        /* Styling untuk daftar */
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        /* Styling untuk tabel */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            border: 1px solid #e5e7eb; /* Warna border abu-abu */
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background-color: #e0f2fe; /* Warna latar belakang header tabel */
+            font-weight: 600;
+            color: #1f2937;
+        }
+        /* Styling untuk feedback studi kasus */
+        .feedback-box {
+            @apply mt-4 p-4 rounded-lg;
+        }
+        .feedback-correct {
+            @apply bg-green-100 text-green-800 border border-green-300;
+        }
+        .feedback-incorrect {
+            @apply bg-red-100 text-red-800 border border-red-300;
+        }
+        .feedback-warning {
+            @apply bg-yellow-100 text-yellow-800 border border-yellow-300;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <!-- Variabel global yang diperlukan untuk Firebase, meskipun tidak digunakan dalam contoh ini -->
+    <script>
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        // Perbaikan: Menggunakan __initial_auth_token di sisi kanan assignment
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Log untuk debugging (opsional)
+        console.log("App ID:", appId);
+        console.log("Firebase Config:", firebaseConfig);
+        console.log("Initial Auth Token:", initialAuthToken);
+    </script>
+
+    <div class="container mx-auto bg-white rounded-xl shadow-xl p-6 sm:p-10">
+        <!-- Header Modul -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-blue-700 mb-4">Modul Ajar Informatika</h1>
+            <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800 mb-2">Eksplorasi Isu dan Strategi Mitigasi Keamanan Jaringan Tingkat Lanjut</h2>
+            <p class="text-lg text-gray-600">Untuk Siswa SMA/MA Fase F / XII</p>
+        </header>
+
+        <!-- Bagian Tujuan Pembelajaran -->
+        <section class="card">
+            <h3 class="section-title">1. Tujuan Pembelajaran</h3>
+            <p class="mb-4">Setelah mempelajari modul ini, Anda diharapkan mampu:</p>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li>Menjelaskan konsep dan karakteristik isu keamanan jaringan tingkat lanjut seperti serangan <b>Distributed Denial of Service (DDoS)</b> dan <b>ransomware</b>.</li>
+                <li>Mengidentifikasi dampak dan target umum dari serangan DDoS dan ransomware.</li>
+                <li>Memahami strategi mitigasi dasar untuk menghadapi serangan DDoS (misalnya, *traffic filtering*, CDN) dan ransomware (misalnya, *backup* data, *software* keamanan, edukasi pengguna).</li>
+                <li>Menganalisis skenario kasus sederhana serangan siber tingkat lanjut dan mengusulkan langkah-langkah mitigasi yang relevan.</li>
+                <li>Merefleksikan pentingnya kesadaran siber dan peran individu/organisasi dalam menjaga ketahanan terhadap ancaman siber.</li>
+            </ul>
+        </section>
+
+        <!-- Bagian Pemahaman Bermakna -->
+        <section class="card">
+            <h3 class="section-title">2. Pemahaman Bermakna</h3>
+            <p class="mb-4 text-gray-700">
+                Ancaman siber terus berkembang menjadi lebih canggih dan berdampak luas, menargetkan tidak hanya individu tetapi juga organisasi besar dan infrastruktur penting.
+            </p>
+            <p class="mb-4 text-gray-700">
+                Memahami jenis serangan tingkat lanjut dan strategi mitigasinya adalah kunci untuk membangun ketahanan siber di era digital.
+            </p>
+            <p class="mb-4 text-gray-700">
+                Keamanan siber adalah tanggung jawab kolektif yang memerlukan kombinasi teknologi, kebijakan, dan kesadaran pengguna.
+            </p>
+        </section>
+
+        <!-- Bagian Pertanyaan Pemantik -->
+        <section class="card">
+            <h3 class="section-title">3. Pertanyaan Pemantik</h3>
+            <p class="mb-4 text-gray-700">Mari kita renungkan beberapa pertanyaan berikut:</p>
+            <ul class="list-decimal pl-6 text-gray-700">
+                <li>Pernahkah kalian mendengar tentang sebuah *website* atau layanan *online* yang tiba-tiba tidak bisa diakses karena diserang? Bagaimana itu bisa terjadi?</li>
+                <li>Bagaimana jika semua data di komputer atau ponsel kalian tiba-tiba terkunci dan diminta tebusan untuk membukanya? Apa yang akan kalian lakukan?</li>
+                <li>Mengapa penjahat siber terus mencari cara baru untuk menyerang sistem komputer?</li>
+                <li>Bagaimana kesadaran dan tindakan kita dalam menghadapi ancaman siber ini sejalan dengan nilai-nilai kehati-hatian, tanggung jawab, dan gotong royong dalam menjaga keamanan bersama?</li>
+            </ul>
+        </section>
+
+        <!-- Konsep Dasar Serangan DDoS -->
+        <section class="card">
+            <h3 class="section-title">Konsep Dasar: Serangan Distributed Denial of Service (DDoS)</h3>
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        Serangan <b>Distributed Denial of Service (DDoS)</b> adalah upaya jahat untuk mengganggu lalu lintas normal dari server, layanan, atau jaringan yang ditargetkan dengan membanjirinya dengan lalu lintas internet yang berlebihan. Ini seperti banyak mobil yang sengaja memacetkan jalan raya, sehingga mobil yang sah tidak bisa lewat.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        Serangan DDoS menggunakan banyak komputer yang terinfeksi (disebut "bot" atau "zombie") yang membentuk "botnet" untuk mengirimkan lalu lintas palsu ke target secara bersamaan. Tujuannya bukan untuk mencuri data, melainkan untuk membuat layanan tidak tersedia bagi pengguna yang sah.
+                    </p>
+                    <h4 class="subsection-title text-xl mt-4">Karakteristik Utama Serangan DDoS:</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li><b>Sumber Terdistribusi:</b> Lalu lintas serangan berasal dari banyak sumber yang berbeda.</li>
+                        <li><b>Tujuan Melumpuhkan:</b> Membuat layanan *online* tidak dapat diakses.</li>
+                        <li><b>Dampak Luas:</b> Dapat menyebabkan kerugian finansial dan reputasi bagi organisasi.</li>
+                        <li><b>Sulit Dicegah Total:</b> Karena berasal dari banyak sumber, sulit untuk diblokir sepenuhnya tanpa memblokir pengguna sah.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://saptatunas.com/wp-content/uploads/2025/06/Web-DDoS-1024x346.png" alt="Ilustrasi Serangan DDoS" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Konsep Dasar Ransomware -->
+        <section class="card">
+            <h3 class="section-title">Konsep Dasar: Ransomware</h3>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <p class="mb-3 text-gray-700">
+                        <b>Ransomware</b> adalah jenis *malware* (perangkat lunak berbahaya) yang mengenkripsi file pada komputer atau jaringan, membuat data tidak dapat diakses. Setelah data terenkripsi, penyerang akan meminta pembayaran (tebusan), seringkali dalam bentuk *cryptocurrency*, sebagai imbalan untuk kunci dekripsi atau untuk mengembalikan akses ke data.
+                    </p>
+                    <p class="mb-3 text-gray-700">
+                        Ransomware biasanya menyebar melalui email *phishing* (dengan lampiran atau tautan berbahaya), situs web yang terinfeksi, atau kerentanan dalam perangkat lunak.
+                    </p>
+                    <h4 class="subsection-title text-xl mt-4">Karakteristik Utama Ransomware:</h4>
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li><b>Enkripsi Data:</b> Mengunci file penting sehingga tidak bisa dibuka.</li>
+                        <li><b>Permintaan Tebusan:</b> Meminta pembayaran untuk mengembalikan akses.</li>
+                        <li><b>Dampak Parah:</b> Dapat menyebabkan kehilangan data permanen jika tebusan tidak dibayar atau kunci tidak diberikan.</li>
+                        <li><b>Penyebaran Cepat:</b> Dapat menyebar dengan cepat di dalam jaringan.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://binus.ac.id/bekasi/wp-content/uploads/2024/07/B04.png" alt="Ilustrasi Ransomware" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Dampak Serangan DDoS & Ransomware -->
+        <section class="card">
+            <h3 class="section-title">Dampak Serangan DDoS dan Ransomware</h3>
+            <p class="mb-4 text-gray-700">Kedua jenis serangan ini memiliki dampak serius, meskipun dengan cara yang berbeda:</p>
+
+            <h4 class="subsection-title text-blue-700">Dampak Serangan DDoS:</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li><b>Kerugian Finansial:</b> Hilangnya pendapatan karena layanan tidak tersedia, biaya mitigasi, dan pemulihan.</li>
+                <li><b>Kerusakan Reputasi:</b> Kehilangan kepercayaan pelanggan dan mitra.</li>
+                <li><b>Gangguan Operasional:</b> Layanan penting terhenti, mengganggu bisnis atau fungsi publik.</li>
+                <li><b>Penyalahgunaan Sumber Daya:</b> Sumber daya IT terbuang untuk menangani serangan.</li>
+            </ul>
+
+            <h4 class="subsection-title text-red-700 mt-8">Dampak Serangan Ransomware:</h4>
+            <ul class="list-disc pl-6 mb-4 text-gray-700">
+                <li><b>Kehilangan Data:</b> Data penting bisa hilang permanen jika tidak ada *backup* atau kunci dekripsi tidak diberikan.</li>
+                <li><b>Kerugian Finansial:</b> Pembayaran tebusan, biaya pemulihan sistem, hilangnya produktivitas.</li>
+                <li><b>Gangguan Bisnis:</b> Operasi terhenti total karena sistem tidak bisa diakses.</li>
+                <li><b>Pelanggaran Privasi:</b> Dalam beberapa kasus, data juga dicuri sebelum dienkripsi dan diancam akan dipublikasikan.</li>
+            </ul>
+        </section>
+
+        <!-- Strategi Mitigasi -->
+        <section class="card">
+            <h3 class="section-title">Strategi Mitigasi Serangan Siber Tingkat Lanjut</h3>
+            <p class="mb-4 text-gray-700">Melindungi diri dari serangan DDoS dan ransomware memerlukan pendekatan berlapis. Berikut adalah strategi mitigasi utama:</p>
+
+            <h4 class="subsection-title text-blue-700">Mitigasi Serangan DDoS:</h4>
+            <div class="flex flex-col md:flex-row items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <ol class="list-decimal pl-6 text-gray-700">
+                        <li><b>Routing (Perutean Lalu Lintas):</b> Mengarahkan lalu lintas serangan ke berbagai pusat data atau server untuk menyebarkan beban dan mencegah satu titik kegagalan. Ini seringkali melibatkan penggunaan CDN (Content Delivery Network) yang mendistribusikan konten situs web ke banyak server di berbagai lokasi geografis, membantu menyerap lalu lintas serangan.</li>
+                        <li><b>Deteksi (Detection):</b> Mengidentifikasi "sidik jari" atau pola serangan DDoS segera setelah terjadi. Sistem keamanan memantau lalu lintas jaringan untuk anomali, lonjakan volume, atau pola permintaan yang tidak biasa.</li>
+                        <li><b>Respons (Response):</b> Setelah terdeteksi, lalu lintas berbahaya akan dihentikan atau diblokir. Ini bisa dilakukan dengan *traffic filtering* menggunakan *firewall* canggih dan perangkat keamanan jaringan untuk memblokir sumber serangan atau jenis lalu lintas tertentu di "tepi" jaringan.</li>
+                        <li><b>Adaptasi (Adapt):</b> Menggunakan pembelajaran mesin (machine learning) dan analisis berkelanjutan untuk memahami pola serangan baru dan menyesuaikan strategi mitigasi secara otomatis. Ini membuat sistem lebih tangguh terhadap serangan di masa depan.</li>
+                        <li><b>Penyedia Layanan Anti-DDoS:</b> Menggunakan layanan khusus dari penyedia keamanan siber yang memiliki infrastruktur besar untuk mendeteksi, mengalihkan, dan membersihkan lalu lintas serangan DDoS secara profesional.</li>
+                        <li><b>Peningkatan Bandwidth:</b> Memiliki kapasitas *bandwidth* yang cukup besar untuk menahan lonjakan lalu lintas yang tidak normal, meskipun ini bukan solusi lengkap tanpa strategi lain.</li>
+                    </ol>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://www.cloudflare.com/img/learning/ddos/ddos-mitigation/ddos-mitigation-stages.png" alt="Ilustrasi Tahapan Mitigasi DDoS" class="rounded-lg shadow-md">
+                </div>
+            </div>
+
+            <h4 class="subsection-title text-red-700 mt-8">Mitigasi Serangan Ransomware:</h4>
+            <div class="flex flex-col md:flex-row-reverse items-center gap-6 mb-6">
+                <div class="md:w-1/2">
+                    <ul class="list-disc pl-6 text-gray-700">
+                        <li><b>Backup Data Reguler:</b> Ini adalah pertahanan paling penting. Selalu simpan salinan data penting di lokasi terpisah dan aman (misal: *cloud storage*, *hard drive* eksternal yang tidak selalu terhubung).</li>
+                        <li><b>Software Keamanan (Antivirus/Anti-malware):</b> Instal dan perbarui secara rutin perangkat lunak keamanan yang dapat mendeteksi dan memblokir *malware*, termasuk ransomware.</li>
+                        <li><b>Edukasi Pengguna:</b> Melatih diri dan orang lain untuk mengenali email *phishing*, tautan mencurigakan, dan lampiran yang tidak dikenal. Jangan pernah mengklik atau membuka yang mencurigakan.</li>
+                        <li><b>Pembaruan Sistem Operasi dan Aplikasi:</b> Pastikan semua perangkat lunak (OS, *browser*, aplikasi) selalu diperbarui dengan *patch* keamanan terbaru untuk menutup kerentanan.</li>
+                        <li><b>Pembatasan Hak Akses:</b> Berikan hak akses terendah yang diperlukan kepada pengguna untuk mengurangi potensi penyebaran ransomware.</li>
+                    </ul>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="https://www.idn.id/wp-content/uploads/2025/02/Featured-Image-Artikel-ranswomware-1024x640.jpg" alt="Ilustrasi Mitigasi Ransomware" class="rounded-lg shadow-md">
+                </div>
+            </div>
+        </section>
+
+        <!-- Pentingnya Kesadaran Siber -->
+        <section class="card">
+            <h3 class="section-title">Pentingnya Kesadaran Siber (Cyber Awareness)</h3>
+            <p class="mb-4 text-gray-700">
+                Teknologi dan keamanan siber terus berkembang, tetapi faktor manusia seringkali menjadi titik terlemah dalam rantai keamanan. Oleh karena itu, <b>kesadaran siber</b> sangatlah penting.
+            </p>
+            <p class="mb-4 text-gray-700">
+                Kesadaran siber berarti memahami risiko *online* dan langkah-langkah yang dapat diambil untuk melindungi diri sendiri dan organisasi. Ini bukan hanya tanggung jawab para ahli IT, tetapi tanggung jawab setiap individu yang menggunakan teknologi.
+            </p>
+            <h4 class="subsection-title text-xl mt-4">Peran Anda sebagai Warga Digital:</h4>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li>Selalu waspada terhadap ancaman *online*.</li>
+                <li>Gunakan praktik keamanan terbaik (kata sandi kuat, 2FA).</li>
+                <li>Laporkan aktivitas mencurigakan.</li>
+                <li>Edukasi diri sendiri dan orang di sekitar Anda.</li>
+                <li>Berpartisipasi aktif dalam menjaga ekosistem digital yang aman.</li>
+            </ul>
+        </section>
+
+        <!-- Studi Kasus Interaktif -->
+        <section class="card">
+            <h3 class="section-title">Studi Kasus Interaktif: Analisis Serangan dan Mitigasi</h3>
+            <p class="mb-6 text-gray-700">Baca studi kasus di bawah ini, kemudian identifikasi jenis serangan siber dan strategi mitigasi yang paling relevan. Jelaskan alasan Anda!</p>
+
+            <!-- Studi Kasus 1: DDoS -->
+            <div class="mb-8 p-6 bg-yellow-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-yellow-800">Studi Kasus 1: Layanan Streaming Video Terganggu</h4>
+                <p class="mb-4 text-gray-700">
+                    Sebuah layanan streaming video populer tiba-tiba mengalami gangguan parah. Pengguna tidak bisa memuat video, dan situs web sering kali *timeout*. Tim teknis menemukan bahwa server mereka dibanjiri oleh lalu lintas data yang sangat besar dan tidak normal, berasal dari ribuan alamat IP yang berbeda di seluruh dunia.
+                </p>
+                <form id="case1-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Jenis Serangan Siber:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="attackType1" value="ddos">
+                                <span class="ml-2 text-gray-700">DDoS</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="attackType1" value="ransomware">
+                                <span class="ml-2 text-gray-700">Ransomware</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="attackType1" value="phishing">
+                                <span class="ml-2 text-gray-700">Phishing</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Strategi Mitigasi yang Paling Relevan:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="mitigation1" value="cdn">
+                                <span class="ml-2 text-gray-700">Menggunakan CDN (Content Delivery Network)</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="mitigation1" value="backup">
+                                <span class="ml-2 text-gray-700">Melakukan backup data secara rutin</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="mitigation1" value="password">
+                                <span class="ml-2 text-gray-700">Menerapkan kebijakan kata sandi kuat</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation1" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation1" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(1)">Cek Jawaban</button>
+                    <div id="feedback1" class="feedback-box hidden"></div>
+                </form>
+            </div>
+
+            <!-- Studi Kasus 2: Ransomware -->
+            <div class="mb-8 p-6 bg-red-50 rounded-lg shadow-md">
+                <h4 class="subsection-title text-red-800">Studi Kasus 2: Data Rumah Sakit Terkunci</h4>
+                <p class="mb-4 text-gray-700">
+                    Sebuah rumah sakit besar mendapati semua rekam medis pasien di komputer mereka tidak bisa dibuka. Muncul pesan di layar yang menyatakan bahwa data telah dienkripsi dan hanya akan didekripsi setelah rumah sakit membayar sejumlah Bitcoin ke alamat tertentu.
+                </p>
+                <form id="case2-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Jenis Serangan Siber:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="attackType2" value="ddos">
+                                <span class="ml-2 text-gray-700">DDoS</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="attackType2" value="ransomware">
+                                <span class="ml-2 text-gray-700">Ransomware</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="attackType2" value="phishing">
+                                <span class="ml-2 text-gray-700">Phishing</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2">
+                            Strategi Mitigasi yang Paling Relevan:
+                        </label>
+                        <div class="mt-2">
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="mitigation2" value="firewall">
+                                <span class="ml-2 text-gray-700">Konfigurasi Firewall yang ketat</span>
+                            </label>
+                            <label class="inline-flex items-center mr-4">
+                                <input type="radio" class="form-radio text-blue-600" name="mitigation2" value="backup">
+                                <span class="ml-2 text-gray-700">Melakukan backup data secara teratur</span>
+                            </label>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="form-radio text-blue-600" name="mitigation2" value="cdn">
+                                <span class="ml-2 text-gray-700">Menggunakan CDN</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="explanation2" class="block text-gray-700 text-sm font-bold mb-2">
+                            Jelaskan Alasan Anda:
+                        </label>
+                        <textarea id="explanation2" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-y" placeholder="Tuliskan alasan Anda di sini..."></textarea>
+                    </div>
+                    <button type="button" class="btn-primary" onclick="checkCaseStudy(2)">Cek Jawaban</button>
+                    <div id="feedback2" class="feedback-box hidden"></div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Bagian Penutup (Ringkasan) -->
+        <section class="card">
+            <h3 class="section-title">Ringkasan Pembelajaran</h3>
+            <p class="mb-4 text-gray-700">
+                Memahami ancaman siber tingkat lanjut seperti <b>DDoS</b> dan <b>Ransomware</b>, serta strategi mitigasinya, adalah esensial di era digital. Kesadaran dan tindakan proaktif kita sebagai individu dan bagian dari organisasi sangat menentukan ketahanan siber.
+            </p>
+        </section>
+
+        <!-- Referensi Tambahan -->
+        <section class="card">
+            <h3 class="section-title">Referensi & Sumber Belajar Tambahan</h3>
+            <p class="mb-4 text-gray-700">Untuk memperkaya pemahaman Anda, silakan kunjungi tautan berikut:</p>
+            <ul class="list-disc pl-6 text-gray-700">
+                <li><b>Video Penjelasan Serangan DDoS dan Ransomware:</b>
+                    <ul>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">What is a DDoS Attack? (Cloudflare)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">What is Ransomware? (Sophos)</a></li>
+                        <li><a href="https://www.youtube.com/watch?v=Q0gX9gQ_w6w" target="_blank" class="text-blue-600 hover:underline">How Ransomware Works (Norton)</a></li>
+                    </ul>
+                </li>
+                <li><b>Infografis/Artikel Ringkas tentang Ancaman dan Mitigasi:</b>
+                    <ul>
+                        <li><a href="https://www.cloudflare.com/learning/ddos/what-is-a-ddos-attack/" target="_blank" class="text-blue-600 hover:underline">DDoS Attack Explained (Cloudflare - artikel)</a></li>
+                        <li><a href="https://www.cisa.gov/stopransomware" target="_blank" class="text-blue-600 hover:underline">Ransomware: What it is and How to Protect Your Organization (CISA)</a></li>
+                        <li>Cari panduan atau artikel "Strategi Mitigasi Serangan Siber" dari Kominfo RI / BSSN.</li>
+                    </ul>
+                </li>
+                <li><b>Contoh Kasus Nyata Serangan Siber:</b>
+                    <ul>
+                        <li>Cari berita tentang Serangan DDoS/Ransomware Terkenal di Indonesia atau internasional (misal: kasus WannaCry, serangan terhadap layanan pemerintah).</li>
+                        <li>Cari "Laporan Keamanan Siber Tahunan" dari perusahaan keamanan siber (misal: Kaspersky, Avast).</li>
+                    </ul>
+                </li>
+            </ul>
+            
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-10 pt-6 border-t border-gray-200 text-gray-500 text-sm">
+            <p>&copy; 2025 Andy Mohammad Teguh. Semua Hak Dilindungi.</p>
+            <p>Dibuat dengan semangat pembelajaran dan inovasi.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Data studi kasus dan jawaban yang benar
+        const caseStudies = {
+            1: {
+                correctAnswer: 'ddos',
+                mitigation: 'cdn',
+                explanation: 'Ini adalah contoh serangan <b>DDoS (Distributed Denial of Service)</b> karena server dibanjiri permintaan palsu dari banyak sumber yang menyebabkan layanan lumpuh. Strategi mitigasi yang paling relevan adalah menggunakan <b>CDN (Content Delivery Network)</b> atau layanan anti-DDoS, karena mereka dapat mendistribusikan lalu lintas dan menyaring permintaan berbahaya.'
+            },
+            2: {
+                correctAnswer: 'ransomware',
+                mitigation: 'backup',
+                explanation: 'Ini adalah serangan <b>Ransomware</b> karena file dienkripsi dan tebusan diminta untuk mengembalikannya. Strategi mitigasi yang paling krusial untuk ransomware adalah <b>melakukan backup data secara teratur</b>, sehingga data dapat dipulihkan tanpa harus membayar tebusan. Edukasi pengguna tentang _phishing_ juga penting untuk mencegah infeksi awal.'
+            }
+        };
+
+        /**
+         * Fungsi untuk menampilkan pesan modal kustom.
+         * Menggantikan alert() dan confirm() yang tidak boleh digunakan.
+         * @param {string} title - Judul modal.
+         * @param {string} message - Pesan yang akan ditampilkan.
+         * @param {string} type - Tipe pesan (correct, incorrect, warning).
+         */
+        function showCustomMessage(title, message, type) {
+            const modalId = 'customModal';
+            let modal = document.getElementById(modalId);
+
+            // Buat modal jika belum ada
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = modalId;
+                modal.className = 'fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 p-4';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+                        <h3 id="modalTitle" class="text-2xl font-bold mb-4"></h3>
+                        <p id="modalMessage" class="text-gray-700 mb-6"></p>
+                        <button id="modalCloseBtn" class="btn-primary w-full">Tutup</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+
+                // Tambahkan event listener untuk tombol tutup
+                document.getElementById('modalCloseBtn').addEventListener('click', () => {
+                    modal.classList.add('hidden');
+                });
+            }
+
+            // Setel konten dan styling modal
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').innerHTML = message; // Gunakan innerHTML untuk mendukung tag HTML
+            
+            const modalContent = modal.querySelector('div');
+            modalContent.classList.remove('bg-green-100', 'bg-red-100', 'bg-yellow-100', 'text-green-800', 'text-red-800', 'text-yellow-800');
+            if (type === 'correct') {
+                modalContent.classList.add('bg-green-100', 'text-green-800');
+            } else if (type === 'incorrect') {
+                modalContent.classList.add('bg-red-100', 'text-red-800');
+            } else if (type === 'warning') {
+                modalContent.classList.add('bg-yellow-100', 'text-yellow-800');
+            } else {
+                modalContent.classList.add('bg-white', 'text-gray-800');
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        /**
+         * Fungsi untuk memeriksa jawaban studi kasus.
+         * @param {number} caseNum - Nomor studi kasus (1, 2).
+         */
+        function checkCaseStudy(caseNum) {
+            const form = document.getElementById(`case${caseNum}-form`);
+            const selectedAttackType = form.querySelector(`input[name="attackType${caseNum}"]:checked`);
+            const selectedMitigation = form.querySelector(`input[name="mitigation${caseNum}"]:checked`);
+            const explanation = document.getElementById(`explanation${caseNum}`).value.trim();
+            const feedbackDiv = document.getElementById(`feedback${caseNum}`);
+            const correctData = caseStudies[caseNum];
+
+            // Reset feedback div
+            feedbackDiv.classList.add('hidden');
+            feedbackDiv.classList.remove('feedback-correct', 'feedback-incorrect', 'feedback-warning');
+            feedbackDiv.innerHTML = '';
+
+            if (!selectedAttackType || !selectedMitigation) {
+                showCustomMessage('Peringatan', 'Mohon pilih jenis serangan dan strategi mitigasi sebelum memeriksa jawaban.', 'warning');
+                return;
+            }
+
+            if (explanation === '') {
+                showCustomMessage('Peringatan', 'Mohon berikan penjelasan Anda.', 'warning');
+                return;
+            }
+
+            const isAttackTypeCorrect = selectedAttackType.value === correctData.correctAnswer;
+            const isMitigationCorrect = selectedMitigation.value === correctData.mitigation;
+            const isCorrect = isAttackTypeCorrect && isMitigationCorrect;
+
+            let feedbackMessage = '';
+            let feedbackType = '';
+
+            if (isCorrect) {
+                feedbackMessage = `
+                    <p class="font-bold">Jawaban Anda Benar!</p>
+                    <p>Penjelasan yang tepat:</p>
+                    <p>${correctData.explanation}</p>
+                `;
+                feedbackType = 'correct';
+            } else {
+                feedbackMessage = `
+                    <p class="font-bold">Jawaban Anda Kurang Tepat.</p>
+                    <p>Penjelasan yang tepat:</p>
+                    <p>${correctData.explanation}</p>
+                `;
+                feedbackType = 'incorrect';
+            }
+
+            feedbackDiv.innerHTML = feedbackMessage;
+            feedbackDiv.classList.add(feedbackType);
+            feedbackDiv.classList.remove('hidden');
+
+            // Scroll to feedback for better UX on smaller screens
+            feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    </script>
+</body>
+</html>
