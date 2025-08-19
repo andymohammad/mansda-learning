@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Data Log Traffic Jaringan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .table-container {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        .sticky-header th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 sm:p-6 md:p-8">
+    <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Laporan Kondisi Lalu Lintas Digital</h1>
+                <p class="text-gray-500 mt-1">Tujuan: Server PPDB Sekolah (IP: 103.45.67.89)</p>
+            </div>
+            <button id="copy-btn" class="mt-4 sm:mt-0 w-full sm:w-auto flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                Salin Data
+            </button>
+        </div>
+
+        <!-- Pesan notifikasi -->
+        <div id="notification" class="hidden fixed top-5 right-5 bg-green-500 text-white py-2 px-4 rounded-lg shadow-md transition-opacity duration-300">
+            Data berhasil disalin!
+        </div>
+
+        <!-- Container untuk tabel agar bisa di-scroll -->
+        <div class="table-container border border-gray-200 rounded-lg">
+            <table class="min-w-full divide-y divide-gray-200" id="log-table">
+                <thead class="bg-gray-50">
+                    <tr class="sticky-header">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Waktu</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">IP Pengirim</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ukuran Paket (KB)</th>
+                        <th scope="col"="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Data Log akan di-generate oleh JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const logData = [
+            // Lalu lintas normal
+            { time: '10:01:01', ip: '202.15.3.10', size: 64, status: 'Normal' },
+            { time: '10:01:05', ip: '188.40.5.112', size: 128, status: 'Normal' },
+            { time: '10:01:12', ip: '14.102.120.5', size: 64, status: 'Normal' },
+            { time: '10:01:20', ip: '192.168.1.101', size: 256, status: 'Normal' },
+            { time: '10:01:25', ip: '101.50.1.22', size: 64, status: 'Normal' },
+            { time: '10:01:33', ip: '36.78.190.45', size: 512, status: 'Normal' },
+            { time: '10:01:41', ip: '20.20.20.1', size: 128, status: 'Normal' },
+            { time: '10:01:55', ip: '114.12.13.14', size: 64, status: 'Normal' },
+            
+            // Awal anomali, traffic mulai meningkat
+            { time: '10:02:01', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:01', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:01', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:02', ip: '5.188.10.201', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:02', ip: '91.200.12.13', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:02', ip: '45.14.23.111', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:02', ip: '8.8.8.8', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:03', ip: '195.20.50.32', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:03', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:03', ip: '185.19.20.1', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:03', ip: '37.1.207.11', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:03', ip: '146.0.77.100', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:04', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:04', ip: '185.220.101.25', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:04', ip: '194.87.99.2', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:04', ip: '93.170.123.12', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:04', ip: '217.107.219.50', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:05', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:05', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:05', ip: '112.215.172.3', size: 512, status: 'Anomali' },
+            { time: '10:02:05', ip: '77.222.60.10', size: 1024, status: 'Anomali (Potensi DDoS)' },
+            { time: '10:02:05', ip: '193.108.43.1', size: 1024, status: 'Anomali (Potensi DDoS)' },
+
+            // Lalu lintas kembali normal setelah mitigasi
+            { time: '10:03:10', ip: '202.15.3.11', size: 64, status: 'Normal' },
+            { time: '10:03:15', ip: '188.40.5.113', size: 128, status: 'Normal' },
+        ];
+
+        const tableBody = document.querySelector('#log-table tbody');
+        
+        // Fungsi untuk mengisi tabel dengan data
+        function populateTable() {
+            logData.forEach(log => {
+                const row = document.createElement('tr');
+                
+                // Menentukan warna baris berdasarkan status
+                if (log.status.includes('Anomali')) {
+                    row.classList.add('bg-red-50');
+                } else {
+                    row.classList.add('hover:bg-gray-50');
+                }
+
+                const statusColor = log.status.includes('Anomali') ? 'text-red-600' : 'text-green-600';
+                const statusFontWeight = log.status.includes('Anomali') ? 'font-semibold' : 'font-normal';
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${log.time}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-mono">${log.ip}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${log.size}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm ${statusColor} ${statusFontWeight}">${log.status}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        populateTable();
+
+        // Fungsi untuk menyalin data ke clipboard
+        const copyBtn = document.getElementById('copy-btn');
+        const notification = document.getElementById('notification');
+
+        copyBtn.addEventListener('click', () => {
+            let tableText = "Waktu\tIP Pengirim\tUkuran Paket (KB)\tStatus\n";
+            logData.forEach(log => {
+                tableText += `${log.time}\t${log.ip}\t${log.size}\t${log.status}\n`;
+            });
+
+            const textarea = document.createElement('textarea');
+            textarea.value = tableText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                // Menggunakan document.execCommand sebagai fallback
+                document.execCommand('copy');
+                
+                // Tampilkan notifikasi
+                notification.classList.remove('hidden');
+                setTimeout(() => {
+                    notification.classList.add('hidden');
+                }, 2000);
+
+            } catch (err) {
+                console.error('Gagal menyalin data: ', err);
+                alert('Oops, tidak bisa menyalin data secara otomatis.');
+            }
+            document.body.removeChild(textarea);
+        });
+    </script>
+</body>
+</html>
