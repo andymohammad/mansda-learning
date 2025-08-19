@@ -22,9 +22,71 @@
             z-index: 10;
         }
     </style>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container { position: relative; width: 100%; max-width: 800px; margin-left: auto; margin-right: auto; height: 350px; max-height: 40vh; }
+        @media (min-width: 768px) { .chart-container { height: 400px; } }
+        .toll-gate { transition: all 0.5s ease-in-out; }
+        .car { transition: all 1s ease-in-out; position: absolute; bottom: -50px; }
+        .attack-car { background-color: #ef4444 !important; }
+        .toll-gate.jammed { background-color: #fca5a5 !important; }
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800 p-4 sm:p-6 md:p-8">
+    <!-- Section 1: Analogi Interaktif -->
+            <section id="analogi" class="py-16 bg-white rounded-2xl shadow-sm mb-5">
+                <div class="max-w-4xl mx-auto text-center px-4">
+                    <h2 class="text-3xl font-bold text-stone-900">Analogi Jalan Tol Macet</h2>
+                    <p class="mt-4 text-lg text-stone-600">Untuk memahami serangan DDoS, bayangkan sebuah gerbang tol yang sibuk. Klik tombol di bawah untuk melihat apa yang terjadi saat serangan dilancarkan.</p>
+                </div>
+                <div class="mt-12 max-w-2xl mx-auto h-64 bg-stone-200 rounded-lg relative overflow-hidden p-4">
+                    <div id="toll-plaza" class="w-full h-full flex justify-around items-start">
+                        <div class="toll-gate w-16 h-20 bg-blue-500 rounded-t-lg flex items-center justify-center text-white font-bold">1</div>
+                        <div class="toll-gate w-16 h-20 bg-blue-500 rounded-t-lg flex items-center justify-center text-white font-bold">2</div>
+                        <div class="toll-gate w-16 h-20 bg-blue-500 rounded-t-lg flex items-center justify-center text-white font-bold">3</div>
+                        <div class="toll-gate w-16 h-20 bg-blue-500 rounded-t-lg flex items-center justify-center text-white font-bold">4</div>
+                    </div>
+                    <div id="road" class="absolute bottom-0 left-0 w-full h-40"></div>
+                </div>
+                <div class="mt-8 text-center">
+                    <button id="attack-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-lg">Luncurkan Serangan DDoS!</button>
+                    <button id="reset-btn" class="ml-4 bg-stone-600 hover:bg-stone-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 text-lg hidden">Reset Simulasi</button>
+                </div>
+            </section>
+
+
+<!-- Section 2: Penjelasan Konsep -->
+            <section id="konsep" class="py-16">
+                <div class="max-w-4xl mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-stone-900 text-center">2. Apa Itu Serangan DDoS?</h2>
+                    <p class="mt-4 text-lg text-stone-600 text-center">Setelah melihat analoginya, mari kita pahami konsep teknisnya. Serangan ini bertujuan melumpuhkan sebuah layanan online dengan membanjirinya permintaan data palsu.</p>
+                    <div class="mt-10 grid md:grid-cols-2 gap-8 items-center">
+                        <div class="text-base text-stone-700 leading-relaxed space-y-4">
+                            <p>Penyerang menggunakan ribuan komputer yang telah terinfeksi (disebut **botnet** atau "komputer zombi") untuk membanjiri server target dengan permintaan data secara serentak.</p>
+                            <p>Server yang kewalahan memproses "permintaan sampah" ini akhirnya kehabisan sumber daya (seperti memori dan CPU) dan tidak bisa lagi melayani pengguna yang sah. Akibatnya, situs web atau aplikasi menjadi sangat lambat atau tidak bisa diakses sama sekali.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <h3 class="font-bold text-teal-700">Server</h3>
+                                <p class="text-sm text-stone-600 mt-1">Komputer pusat yang menyimpan data dan melayani permintaan dari pengguna.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <h3 class="font-bold text-teal-700">Botnet</h3>
+                                <p class="text-sm text-stone-600 mt-1">Jaringan "komputer zombi" yang dikendalikan penyerang untuk melancarkan serangan.</p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm col-span-2">
+                                <h3 class="font-bold text-teal-700">Traffic</h3>
+                                <p class="text-sm text-stone-600 mt-1">Aliran data yang bergerak di dalam jaringan. Serangan DDoS menciptakan 'kemacetan' traffic.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
     <div class="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8">
+        
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-gray-900">Laporan Kondisi Lalu Lintas Digital</h1>
@@ -57,9 +119,98 @@
                 </tbody>
             </table>
         </div>
+        
+        
+        <hr>
+        
+        <div>
+    <h3 class="mt-5"><b>Lumpuh di Hari Terakhir: Kronologi Serangan DDoS Terhadap Situs PPDB Nasional</b></h3>
+    
+    <p class="mt-4"><strong>Jawa Timur</strong> - Kepanikan melanda ribuan calon siswa dan orang tua di seluruh Indonesia pada hari terakhir pendaftaran sekolah online. Situs portal PPDB Nasional yang menjadi gerbang utama pendaftaran tiba-tiba tidak bisa diakses, menampilkan pesan "Error" atau hanya halaman putih. Media sosial pun riuh, banyak yang mengira server pendaftaran sedang <em>down</em> karena kelebihan beban. Namun, yang terjadi sebenarnya jauh lebih serius: sebuah serangan siber terkoordinasi.</p>
+    
+    <p class="mt-4">Tim teknis dari Pusat Data Nasional segera mengidentifikasi anomali ini bukan sebagai lonjakan pendaftar biasa, melainkan sebuah serangan <strong>Distributed Denial of Service (DDoS)</strong> yang masif. Mari kita bedah apa yang sebenarnya terjadi di balik layar pada pagi yang genting itu.</p>
+    
+    <h4 class="mt-6 font-semibold">Apa Itu Serangan DDoS? Analogi Jalan Tol yang Macet Total</h4>
+    
+    <p class="mt-4">Bayangkan server situs PPDB adalah sebuah gerbang tol dengan sepuluh loket pembayaran. Di hari biasa, mobil-mobil (pengguna) datang satu per satu, membayar, dan lewat dengan lancar. Di hari terakhir pendaftaran, lalu lintas memang padat, mungkin semua loket terisi, tapi antrian masih bergerak.</p>
+    
+    <p class="mt-4">Sekarang, bayangkan seorang penjahat siber mengirim ribuan mobil kosong tanpa pengemudi (<em>botnet</em>) untuk sengaja berhenti dan memblokir semua loket tol secara bersamaan. Mobil-mobil ini tidak bertujuan untuk membayar atau lewat, tujuan mereka hanya satu: membuat kemacetan total. Akibatnya, mobil-mobil asli yang ingin mendaftar tidak bisa mendekati loket sama sekali. Jalan tol pun lumpuh.</p>
+    
+    <p class="mt-4">Itulah cara kerja serangan DDoS. Penyerang menggunakan ribuan komputer yang telah terinfeksi (disebut <em>botnet</em> atau "komputer zombi") untuk membanjiri server target dengan permintaan data palsu secara serentak. Server yang kewalahan memproses "permintaan sampah" ini akhirnya kehabisan sumber daya dan tidak bisa lagi melayani pengguna yang sah.</p>
+    
+    <h4 class="mt-6 font-semibold">Kronologi Serangan Berdasarkan Data Log</h4>
+    
+    <p class="mt-4">Mari kita lihat bagaimana tim teknis menganalisis serangan ini menggunakan data log lalu lintas jaringan, mirip dengan data yang akan kalian analisis.</p>
+    
+    <p class="mt-4"><strong>Pukul 10:01 - Kondisi Normal</strong><br>Pada jam-jam awal, sistem berjalan lancar. Log menunjukkan permintaan masuk dari berbagai alamat IP yang berbeda dengan ukuran paket data yang wajar (64 KB, 128 KB, 512 KB). Ini adalah gambaran lalu lintas normal dari para pendaftar yang mengakses situs dari berbagai daerah.</p>
+    
+    <blockquote class="mt-2 p-2 border-l-4 border-gray-300 bg-gray-50">
+        <pre><code>10:01:01 | 202.15.3.10 | 64 KB | Normal
+10:01:05 | 188.40.5.112 | 128 KB | Normal</code></pre>
+    </blockquote>
+    
+    <p class="mt-4"><strong>Pukul 10:02 - Serangan Dimulai</strong><br>Tepat pukul 10:02, alarm sistem berbunyi. Tim teknis melihat lonjakan traffic yang tidak masuk akal. Dalam hitungan detik, ribuan permintaan data membanjiri server. Data log menunjukkan pola yang sangat mencurigakan:</p>
+    
+    <ol class="list-decimal list-inside mt-2 space-y-2">
+        <li><strong>Repetisi Aneh:</strong> Sebuah alamat IP, misalnya `112.215.172.3`, yang sebelumnya tidak terlalu aktif, tiba-tiba mengirimkan permintaan berulang kali dalam satu detik.</li>
+        <li><strong>Banjir IP Baru:</strong> Ratusan hingga ribuan alamat IP baru dari berbagai negara (seperti `5.188.10.201`, `91.200.12.13`, `45.14.23.111`) secara bersamaan mengirimkan permintaan dengan ukuran paket yang seragam dan besar (misalnya 1024 KB). Ini adalah ciri khas "pasukan botnet" yang bergerak serentak.</li>
+    </ol>
+    
+    <blockquote class="mt-2 p-2 border-l-4 border-gray-300 bg-gray-50">
+        <pre><code>10:02:01 | 112.215.172.3 | 512 KB | Anomali
+10:02:02 | 5.188.10.201 | 1024 KB | Anomali (Potensi DDoS)
+10:02:02 | 91.200.12.13 | 1024 KB | Anomali (Potensi DDoS)</code></pre>
+    </blockquote>
+    
+    <p class="mt-4">Server PPDB yang memiliki kapasitas untuk melayani ribuan pengguna per menit, kini dipaksa menghadapi ratusan ribu permintaan per detik. Inilah momen ketika situs mulai lumpuh.</p>
+    
+    <p class="mt-4"><strong>Pukul 10:03 - Mitigasi dan Pemulihan</strong><br>Tim teknis segera mengaktifkan sistem mitigasi DDoS. Sistem ini bekerja seperti polisi lalu lintas yang mengalihkan "mobil-mobil kosong" ke jalur buntu dan hanya memperbolehkan "mobil asli" untuk lewat. Lalu lintas berbahaya disaring, dan perlahan, server mulai bisa bernapas kembali. Log menunjukkan lalu lintas kembali ke pola normal, meskipun dalam pengawasan ketat.</p>
+    
+    <h4 class="mt-6 font-semibold">Membaca Jejak Digital Serangan pada Data Log</h4>
+    
+    <p class="mt-4">Dari studi kasus ini, kita bisa belajar cara mengidentifikasi serangan DDoS hanya dengan melihat data log. Perhatikan tanda-tanda bahaya berikut:</p>
+    
+    <ul class="list-disc list-inside mt-2 space-y-1">
+        <li><strong>Volume Tidak Wajar:</strong> Lonjakan jumlah permintaan yang ekstrem dalam waktu singkat (dari ratusan menjadi ratusan ribu).</li>
+        <li><strong>Pola yang Seragam:</strong> Banyaknya permintaan dengan ukuran paket yang identik dan besar yang datang bersamaan.</li>
+        <li><strong>Sumber yang Terdistribusi:</strong> Permintaan datang dari sangat banyak alamat IP yang berbeda dari seluruh dunia, bukan hanya dari satu sumber. Inilah mengapa disebut "Distributed".</li>
+    </ul>
+    
+    <p class="mt-4">Serangan terhadap situs PPDB ini adalah pengingat bahwa di era digital, keamanan siber bukanlah isu yang jauh. Ia bisa berdampak langsung pada kesempatan pendidikan, layanan publik, dan stabilitas ekonomi. Memahami cara kerja dan cara mengenali serangan seperti DDoS adalah langkah awal untuk menjadi warga digital yang lebih tangguh dan waspada.</p>
+    
+    <div class="mt-6 pt-4 border-t">
+        <h4 class="font-semibold">Panduan Diskusi Kelompok: Misi Pengendali Lalu Lintas Digital</h4>
+        <p class="mt-2">Setelah membaca artikel studi kasus di atas, sekarang saatnya kalian bekerja sebagai sebuah tim <strong>Pengendali Lalu Lintas Digital</strong>. Ikuti langkah-langkah berikut untuk memecahkan kasus ini.</p>
+        <p class="mt-2"><strong>Tujuan Misi:</strong> Menganalisis data log untuk menemukan bukti-bukti serangan DDoS dan melaporkan temuannya.</p>
+        
+        <h5 class="mt-4 font-medium">Langkah 1: Identifikasi Masalah (5 Menit)</h5>
+        <p>Diskusikan dalam kelompok pertanyaan-pertanyaan berikut berdasarkan artikel:</p>
+        <ol class="list-decimal list-inside mt-2 space-y-1">
+            <li>Apa masalah utama yang terjadi pada situs PPDB Nasional?</li>
+            <li>Mengapa masalah ini lebih berbahaya daripada sekadar "server down" biasa?</li>
+            <li>Menurut analogi jalan tol, apa perbedaan mendasar antara "mobil asli" (pengguna sah) dan "mobil kosong" (traffic serangan)?</li>
+        </ol>
+
+        <h5 class="mt-4 font-medium">Langkah 2: Analisis Data Log & Statistik (10 Menit)</h5>
+        <p>Buka file <strong>"Data Log Traffic DDoS"</strong> yang telah dibagikan. Gunakan data tersebut untuk menemukan bukti dan menjawab pertanyaan ini:</p>
+        <ol class="list-decimal list-inside mt-2 space-y-1">
+            <li>Pada jam berapa tepatnya kalian melihat tanda-tanda pertama lalu lintas yang tidak normal (anomali)?</li>
+            <li>Sebutkan minimal <strong>dua alamat IP</strong> yang paling mencurigakan. Apa yang membuat mereka mencurigakan menurut data?</li>
+            <li>Bandingkan pola lalu lintas data sebelum pukul <strong>10:02</strong> dan saat pukul <strong>10:02</strong>. Apa <strong>tiga perbedaan utama</strong> yang kalian temukan? (Lihat dari sisi jumlah, sumber IP, dan ukuran paket).</li>
+            <li><strong>(Tantangan Statistik 📊)</strong> Hitung <strong>frekuensi</strong> (jumlah kemunculan) dari IP `112.215.172.3` pada pukul 10:02. Bandingkan dengan frekuensinya sebelum pukul 10:02. Apa kesimpulan statistika sederhana yang bisa kalian ambil dari perbandingan ini?</li>
+        </ol>
+
+        <h5 class="mt-4 font-medium">Langkah 3: Siapkan Laporan Analisis Kemacetan (5 Menit)</h5>
+        <p>Rangkum hasil temuan kalian dalam sebuah laporan singkat (bisa dalam poin-poin). Siapkan satu orang juru bicara untuk mempresentasikan jawaban dari <strong>Langkah 2</strong> kepada tim pengendali lainnya di kelas. Pastikan laporan kalian menjawab pertanyaan kunci: <strong>"Bagaimana kita tahu bahwa ini adalah serangan DDoS berdasarkan data log dan analisis statistik?"</strong></p>
+        
+        <p class="mt-4">Selamat bekerja, tim!</p>
+    </div>
+</div>
+
     </div>
 
     <script>
+        
         const logData = [
             // Lalu lintas normal
             { time: '10:01:01', ip: '202.15.3.10', size: 64, status: 'Normal' },
@@ -159,6 +310,48 @@
             }
             document.body.removeChild(textarea);
         });
+        
+        // --- Interactive Analogy ---
+        const attackBtn = document.getElementById('attack-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const road = document.getElementById('road');
+        const tollPlaza = document.getElementById('toll-plaza');
+        let carInterval;
+
+        function createCar(isAttack = false) {
+            const car = document.createElement('div');
+            car.className = 'car w-10 h-6 rounded';
+            car.style.backgroundColor = isAttack ? '#ef4444' : '#3b82f6';
+            car.style.left = `${Math.random() * 90}%`;
+            road.appendChild(car);
+            
+            setTimeout(() => {
+                car.style.transform = `translateY(-${road.offsetHeight}px)`;
+            }, 100);
+
+            setTimeout(() => {
+                road.removeChild(car);
+            }, 2000);
+        }
+
+        attackBtn.addEventListener('click', () => {
+            clearInterval(carInterval);
+            carInterval = setInterval(() => createCar(true), 50);
+            tollPlaza.querySelectorAll('.toll-gate').forEach(gate => gate.classList.add('jammed'));
+            attackBtn.classList.add('hidden');
+            resetBtn.classList.remove('hidden');
+        });
+
+        resetBtn.addEventListener('click', () => {
+            clearInterval(carInterval);
+            carInterval = setInterval(() => createCar(false), 500);
+            tollPlaza.querySelectorAll('.toll-gate').forEach(gate => gate.classList.remove('jammed'));
+            resetBtn.classList.add('hidden');
+            attackBtn.classList.remove('hidden');
+        });
+        
+        carInterval = setInterval(() => createCar(false), 500);
+
     </script>
 </body>
 </html>
